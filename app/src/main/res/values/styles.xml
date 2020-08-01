@@ -1,0 +1,37 @@
+<resources>
+    <!--    https://material.io/develop/android/components/tab-layout/-->
+    <style name="Widget.MyTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+    </style>
+
+    <style name="Widget.MyTheme.TabLayout.Feed">
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabMode">scrollable</item>
+    </style>
+
+    <style name="Widget.MyTheme.TabLayout.Common">
+        <item name="tabIndicatorFullWidth">false</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyTheme.BottomNav" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_xlarge</item>
+    </style>
+
+    <style name="ShapeAppearance.MyTheme.SearchCard" parent="ShapeAppearance.MyTheme.MediumComponent">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_xlarge</item>
+        <item name="cornerSizeBottomRight">@dimen/radius_xlarge</item>
+    </style>
+
+    <style name="Widget.MyTheme.SearchHistory" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipMinHeight">36dp</item>
+        <item name="chipCornerRadius">4dp</item>
+    </style>
+
+    <style name="CircleImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Parotia</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_collection_list">Collections</string>
+    <string name="title_search_entry">Search</string>
+    <string name="title_account">Account</string>
+    <string name="title_search_pager">Search</string>
+    <string name="title_photo">Photo</string>
+    <string name="title_collection">Collection</string>
+
+    <string name="search_explore">Explore</string>
+    <string name="search_type_photo">Photos</string>
+    <string name="search_type_collection">Collections</string>
+    <string name="search_type_user">People</string>
+    <string name="search_input_hint">Search photos, collections, and people</string>
+    <string name="search_history">History</string>
+
+    <string name="feed_popular_title">Popular</string>
+    <string name="feed_latest_title">Latest</string>
+</resources>

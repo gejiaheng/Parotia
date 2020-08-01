@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@+id/navigation_collection_list">
+
+    <action
+        android:id="@+id/action_global_search"
+        app:destination="@id/navigation_search_pager" />
+
+    <action
+        android:id="@+id/action_global_photo"
+        app:destination="@id/navigation_photo" />
+
+    <action
+        android:id="@+id/action_global_collection"
+        app:destination="@id/navigation_collection" />
+
+    <fragment
+        android:id="@+id/navigation_feed"
+        android:name="com.melodie.parotia.ui.feed.FeedPagerFragment"
+        android:label="@string/title_feed"
+        tools:layout="@layout/fragment_feed_pager" />
+
+    <fragment
+        android:id="@+id/navigation_collection_list"
+        android:name="com.melodie.parotia.ui.collection.list.CollectionListFragment"
+        android:label="@string/title_collection_list"
+        tools:layout="@layout/fragment_collection_list" />
+
+    <fragment
+        android:id="@+id/navigation_search_entry"
+        android:name="com.melodie.parotia.ui.search.entry.SearchEntryFragment"
+        android:label="@string/title_search_entry"
+        tools:layout="@layout/fragment_search_entry"></fragment>
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.melodie.parotia.ui.profile.ProfileFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_search_pager"
+        android:name="com.melodie.parotia.ui.search.SearchPagerFragment"
+        android:label="@string/title_search_pager"
+        tools:layout="@layout/fragment_search_pager">
+        <argument
+            android:name="query"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_photo"
+        android:name="com.melodie.parotia.ui.photo.PhotoFragment"
+        android:label="@string/title_photo"
+        tools:layout="@layout/fragment_photo">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_collection"
+        android:name="com.melodie.parotia.ui.collection.detail.CollectionFragment"
+        android:label="@string/title_collection"
+        tools:layout="@layout/fragment_collection">
+        <argument
+            android:name="model"
+            app:argType="com.melodie.parotia.model.args.ArgCollection" />
+    </fragment>
+</navigation>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.melodie.parotia.ui.profile.ProfileViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/auth_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.loggedIn ? View.GONE : View.VISIBLE}"
+            tools:visibility="gone" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.loggedIn ? View.VISIBLE : View.GONE}"
+            app:layoutDescription="@xml/scene_profile"
+            tools:visibility="visible">
+
+            <View
+                android:id="@+id/toolbar"
+                android:layout_width="0dp"
+                android:layout_height="?actionBarSize"
+                android:background="?android:colorBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/profile_header_padding"
+                android:text="@{viewModel.me.name}"
+                android:textAppearance="?textAppearanceHeadline4"
+                tools:text="Esther Howard" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/profile_avatar"
+                android:layout_height="@dimen/profile_avatar"
+                android:layout_marginStart="@dimen/profile_header_padding"
+                app:imageUrl="@{viewModel.me.profile_image.medium}"
+                app:shapeAppearanceOverlay="@style/CircleImage" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="@dimen/profile_header_padding"
+                android:text="@{viewModel.me.location}"
+                android:textAppearance="?textAppearanceBody2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                tools:text="United States" />
+
+            <TextView
+                android:id="@+id/bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_header_padding"
+                android:layout_marginEnd="@dimen/profile_header_padding"
+                android:text="@{viewModel.me.bio}"
+                android:textAppearance="?textAppearanceBody2"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/location"
+                app:layout_constraintTop_toBottomOf="@id/location"
+                tools:text="Download free, beautiful high-quality photos curated by Esther." />
+
+            <ImageView
+                android:id="@+id/twitter_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_header_padding"
+                android:src="@drawable/ic_twitter"
+                app:layout_constraintStart_toStartOf="@id/bio"
+                app:layout_constraintTop_toBottomOf="@id/bio" />
+
+            <ImageView
+                android:id="@+id/ins_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/profile_header_padding"
+                android:src="@drawable/ic_instagram"
+                app:layout_constraintStart_toEndOf="@id/twitter_btn"
+                app:layout_constraintTop_toTopOf="@id/twitter_btn" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="avatar,ins_btn" />
+
+            <TextView
+                android:id="@+id/views_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/profile_header_padding"
+                android:layout_marginTop="24dp"
+                android:text="Views"
+                android:textAppearance="?textAppearanceBody2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier1" />
+
+            <TextView
+                android:id="@+id/views_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{`` + viewModel.userStats.views.total}"
+                android:textAppearance="?textAppearanceHeadline5"
+                app:layout_constraintStart_toStartOf="@id/views_title"
+                app:layout_constraintTop_toBottomOf="@id/views_title"
+                tools:text="613,132" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="end"
+                app:constraint_referenced_ids="views_title,views_num" />
+
+            <TextView
+                android:id="@+id/downloads_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:text="Downloads"
+                android:textAppearance="?textAppearanceBody2"
+                app:layout_constraintStart_toEndOf="@id/barrier2"
+                app:layout_constraintTop_toTopOf="@id/views_title" />
+
+            <TextView
+                android:id="@+id/downloads_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{`` + viewModel.userStats.downloads.total}"
+                android:textAppearance="?textAppearanceHeadline5"
+                app:layout_constraintStart_toStartOf="@id/downloads_title"
+                app:layout_constraintTop_toBottomOf="@id/downloads_title"
+                tools:text="14,034" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/Widget.MyTheme.TabLayout.Common"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:elevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/downloads_num" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?android:colorBackground"
+                android:elevation="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </FrameLayout>
+</layout>
