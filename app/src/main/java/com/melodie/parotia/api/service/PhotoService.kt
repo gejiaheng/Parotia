@@ -17,4 +17,9 @@ interface PhotoService {
     suspend fun getPhoto(
         @Path("id") id: String
     ): Photo
+
+    @GET("/photos/random")
+    suspend fun getRandomPhotos(
+        @Query("count") count: Int
+    ): List<Photo>
 }

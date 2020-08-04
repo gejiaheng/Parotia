@@ -13,6 +13,7 @@ import kotlin.reflect.KProperty
 interface PreferenceStorage {
     var token: String?
     var searchHistory: String?
+    var searchBanners: String?
 }
 
 @Singleton
@@ -35,10 +36,15 @@ class SharedPreferenceStorage @Inject constructor(
         prefs, PREF_SEARCH_HISTORY, null
     )
 
+    override var searchBanners by StringPreference(
+        prefs, PREF_SEARCH_BANNERS, null
+    )
+
     companion object {
         const val PREFS_NAME = "unsplash"
         const val PREF_TOKEN = "pref_token"
         const val PREF_SEARCH_HISTORY = "pref_search_history"
+        const val PREF_SEARCH_BANNERS = "pref_search_banners"
     }
 }
 
