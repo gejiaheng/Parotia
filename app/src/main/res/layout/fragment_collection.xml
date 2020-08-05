@@ -15,33 +15,65 @@
         android:layout_height="match_parent"
         app:layoutDescription="@xml/scene_collection">
 
+        <FrameLayout
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            android:background="?android:colorBackground" />
+
         <ImageView
-            android:id="@+id/cover"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:outlineProvider="bounds"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{viewModel.collection.coverUrl}" />
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="@id/toolbar" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:text="@{viewModel.collection.title}"
-            android:textAppearance="?textAppearanceHeadline4"
-            tools:text="Minimal Design" />
+            android:textAppearance="?textAppearanceHeadline5"
+            tools:text="Home Sweet Home" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:padding="@dimen/item_spacing"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cover" />
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/user_avatar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="16dp"
+                    app:imageUrl="@{viewModel.collection.userAvatar}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="64dp"
+                    android:text="@{viewModel.collection.description}"
+                    tools:text="Inside the home, interior decorating, den, table, chair, living room, dining room, chaise, sofa, bench, bed, bedroom, kitchen, knickknacks." />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="24dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/item_spacing" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.motion.widget.MotionLayout>
-
 </layout>

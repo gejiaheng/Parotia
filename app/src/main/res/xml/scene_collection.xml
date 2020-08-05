@@ -9,51 +9,72 @@
 
         <OnSwipe
             motion:dragDirection="dragUp"
-            motion:touchAnchorId="@id/cover"
+            motion:touchAnchorId="@id/title"
             motion:touchAnchorSide="bottom" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@id/cover"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:elevation="0dp"
-            android:alpha="1.0"
-            motion:layout_constraintDimensionRatio="1.8"
+            android:id="@id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintTop_toTopOf="parent"
+            android:elevation="0dp" />
 
         <Constraint
             android:id="@id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:elevation="0dp"
-            motion:layout_constraintBottom_toBottomOf="@id/cover"
-            motion:layout_constraintStart_toStartOf="@id/cover" />
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/toolbar">
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customFloatValue="28" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/nested_scroll_view"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/title" />
 
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@id/cover"
-            android:layout_width="match_parent"
+            android:id="@id/toolbar"
+            android:layout_width="0dp"
             android:layout_height="?actionBarSize"
-            android:elevation="4dp"
-            android:alpha="0.4"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintTop_toTopOf="parent"
+            android:elevation="4dp" />
 
         <Constraint
             android:id="@id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="4dp"
-            motion:layout_constraintBottom_toBottomOf="@id/cover"
-            motion:layout_constraintStart_toStartOf="@id/cover"
-            motion:layout_constraintTop_toTopOf="@id/cover" />
+            motion:layout_constraintBottom_toBottomOf="@id/toolbar"
+            motion:layout_constraintEnd_toEndOf="@id/toolbar"
+            motion:layout_constraintStart_toEndOf="@id/btn_back"
+            motion:layout_constraintTop_toTopOf="@id/toolbar">
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customFloatValue="20" />
+        </Constraint>
 
+        <Constraint
+            android:id="@id/nested_scroll_view"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/toolbar" />
     </ConstraintSet>
 </MotionScene>

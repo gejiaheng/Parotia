@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentCollectionBinding
-import com.melodie.parotia.ui.list.PhotoAdapter
+import com.melodie.parotia.ui.list.HorizontalPhotoAdapter
 import com.melodie.parotia.widget.SpacingDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -24,8 +24,7 @@ class CollectionFragment : Fragment() {
     private lateinit var binding: FragmentCollectionBinding
 
     @Inject
-    lateinit var adapter: PhotoAdapter
-//    private val args: CollectionFragmentArgs by navArgs()
+    lateinit var adapter: HorizontalPhotoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +37,7 @@ class CollectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(binding.recyclerView)
+        setupRecyclerView(binding.recyclerViewPhotos)
         binding.viewModel = viewModel
         lifecycleScope.launchWhenResumed {
             viewModel.photos?.collectLatest {
@@ -52,8 +51,8 @@ class CollectionFragment : Fragment() {
         view.addItemDecoration(SpacingDecoration())
         view.layoutManager =
             StaggeredGridLayoutManager(
-                context?.resources?.getInteger(R.integer.photo_spans) ?: 2,
-                StaggeredGridLayoutManager.VERTICAL
+                context?.resources?.getInteger(R.integer.collection_photos_span) ?: 2,
+                StaggeredGridLayoutManager.HORIZONTAL
             )
         view.adapter = adapter
     }
