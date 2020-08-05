@@ -8,23 +8,22 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.melodie.parotia.MainNavDirections
-import com.melodie.parotia.databinding.ItemPhotoBinding
+import com.melodie.parotia.databinding.ItemPhotoHorizontalBinding
 import com.melodie.parotia.model.Photo
+import com.melodie.parotia.ui.list.diff.PhotoDiff
 import javax.inject.Inject
 
-class PhotoAdapter @Inject constructor() : PagingDataAdapter<Photo, PhotoAdapter.ViewHolder>(
-    PhotoDiff
-) {
+class HorizontalPhotoPagingAdapter @Inject constructor() :
+    PagingDataAdapter<Photo, HorizontalPhotoPagingAdapter.ViewHolder>(PhotoDiff) {
 
     private val set = ConstraintSet()
 
     class ViewHolder(
-        private val binding: ItemPhotoBinding
+        private val binding: ItemPhotoHorizontalBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: Photo?, set: ConstraintSet) {
             binding.photoItem = photo
-            // https://github.com/burhanrashid52/AspectRatioExample
-            if (photo != null) {
+            photo?.apply {
                 val ratio = String.format("%d:%d", photo.width, photo.height)
                 set.clone(binding.photoFrame)
                 set.setDimensionRatio(binding.image.id, ratio)
@@ -38,7 +37,8 @@ class PhotoAdapter @Inject constructor() : PagingDataAdapter<Photo, PhotoAdapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemPhotoHorizontalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

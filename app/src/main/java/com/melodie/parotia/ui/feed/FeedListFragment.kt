@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentFeedListBinding
-import com.melodie.parotia.ui.list.PhotoAdapter
+import com.melodie.parotia.ui.list.PhotoPagingAdapter
 import com.melodie.parotia.widget.SpacingDecoration
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ abstract class FeedListFragment : Fragment() {
     protected abstract val viewModel: ViewModel
 
     @Inject
-    lateinit var adapter: PhotoAdapter
+    lateinit var adapter: PhotoPagingAdapter
     private lateinit var binding: FragmentFeedListBinding
 
     override fun onCreateView(

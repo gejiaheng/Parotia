@@ -1,4 +1,4 @@
-package com.melodie.parotia.ui.list
+package com.melodie.parotia.ui.list.diff
 
 import androidx.recyclerview.widget.DiffUtil
 import com.melodie.parotia.model.Photo

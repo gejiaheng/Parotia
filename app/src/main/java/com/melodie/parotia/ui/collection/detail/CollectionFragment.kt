@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentCollectionBinding
 import com.melodie.parotia.ui.list.CollectionAdapter
-import com.melodie.parotia.ui.list.HorizontalPhotoAdapter
+import com.melodie.parotia.ui.list.HorizontalPhotoPagingAdapter
 import com.melodie.parotia.widget.SpacingDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -27,7 +27,7 @@ class CollectionFragment : Fragment() {
     private lateinit var binding: FragmentCollectionBinding
 
     @Inject
-    lateinit var photoAdapter: HorizontalPhotoAdapter
+    lateinit var photoAdapter: HorizontalPhotoPagingAdapter
 
     @Inject
     lateinit var relatedAdapter: CollectionAdapter

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melodie.parotia.R
 import com.melodie.parotia.model.Photo
-import com.melodie.parotia.ui.list.PhotoAdapter
+import com.melodie.parotia.ui.list.PhotoPagingAdapter
 import com.melodie.parotia.ui.search.SearchListFragment
 import com.melodie.parotia.widget.SpacingDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchPhotoFragment : SearchListFragment<Photo, PhotoAdapter.ViewHolder>() {
+class SearchPhotoFragment : SearchListFragment<Photo, PhotoPagingAdapter.ViewHolder>() {
     override val viewModel: SearchPhotoViewModel by viewModels()
 
     override fun setupRecyclerView(view: RecyclerView) {
@@ -28,8 +28,8 @@ class SearchPhotoFragment : SearchListFragment<Photo, PhotoAdapter.ViewHolder>()
             )
     }
 
-    override fun createAdapter(): PagingDataAdapter<Photo, PhotoAdapter.ViewHolder> {
-        return PhotoAdapter()
+    override fun createAdapter(): PagingDataAdapter<Photo, PhotoPagingAdapter.ViewHolder> {
+        return PhotoPagingAdapter()
     }
 
     override fun onSearch(query: String?) {

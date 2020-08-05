@@ -6,14 +6,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.melodie.parotia.model.User
-import com.melodie.parotia.ui.list.UserAdapter
+import com.melodie.parotia.ui.list.UserPagingAdapter
 import com.melodie.parotia.ui.search.SearchListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchUserFragment : SearchListFragment<User, UserAdapter.ViewHolder>() {
+class SearchUserFragment : SearchListFragment<User, UserPagingAdapter.ViewHolder>() {
     override val viewModel: SearchUserViewModel by viewModels()
 
     override fun setupRecyclerView(view: RecyclerView) {
@@ -21,8 +21,8 @@ class SearchUserFragment : SearchListFragment<User, UserAdapter.ViewHolder>() {
         view.layoutManager = LinearLayoutManager(context)
     }
 
-    override fun createAdapter(): PagingDataAdapter<User, UserAdapter.ViewHolder> {
-        return UserAdapter()
+    override fun createAdapter(): PagingDataAdapter<User, UserPagingAdapter.ViewHolder> {
+        return UserPagingAdapter()
     }
 
     override fun onSearch(query: String?) {

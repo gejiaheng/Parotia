@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melodie.parotia.R
 import com.melodie.parotia.model.Photo
-import com.melodie.parotia.ui.list.PhotoAdapter
+import com.melodie.parotia.ui.list.PhotoPagingAdapter
 import com.melodie.parotia.ui.profile.ProfileViewModel
 import com.melodie.parotia.ui.profile.UserContentFragment
 import com.melodie.parotia.widget.SpacingDecoration
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class UserLikedPhotoFragment : UserContentFragment<Photo, PhotoAdapter.ViewHolder>() {
+class UserLikedPhotoFragment : UserContentFragment<Photo, PhotoPagingAdapter.ViewHolder>() {
 
     private val profileViewModel: ProfileViewModel by viewModels(
         ownerProducer = { requireParentFragment() }
@@ -35,8 +35,8 @@ class UserLikedPhotoFragment : UserContentFragment<Photo, PhotoAdapter.ViewHolde
             )
     }
 
-    override fun createAdapter(): PagingDataAdapter<Photo, PhotoAdapter.ViewHolder> {
-        return PhotoAdapter()
+    override fun createAdapter(): PagingDataAdapter<Photo, PhotoPagingAdapter.ViewHolder> {
+        return PhotoPagingAdapter()
     }
 
     override fun subscribe() {
