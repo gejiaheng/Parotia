@@ -19,4 +19,10 @@ interface CollectionService {
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
     ): List<Photo>
+
+    // This API is not paginated
+    @GET("/collections/{id}/related")
+    suspend fun listRelatedCollections(
+        @Path("id") id: Long
+    ): List<Collection>
 }

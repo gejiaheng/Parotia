@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.melodie.parotia.model.Collection
-import com.melodie.parotia.ui.list.CollectionAdapter
+import com.melodie.parotia.ui.list.CollectionPagingAdapter
 import com.melodie.parotia.ui.search.SearchListFragment
 import com.melodie.parotia.widget.SpacingDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchCollectionFragment : SearchListFragment<Collection, CollectionAdapter.ViewHolder>() {
+class SearchCollectionFragment : SearchListFragment<Collection, CollectionPagingAdapter.ViewHolder>() {
     override val viewModel: SearchCollectionViewModel by viewModels()
 
     override fun setupRecyclerView(view: RecyclerView) {
@@ -23,8 +23,8 @@ class SearchCollectionFragment : SearchListFragment<Collection, CollectionAdapte
         view.layoutManager = GridLayoutManager(context, 2)
     }
 
-    override fun createAdapter(): PagingDataAdapter<Collection, CollectionAdapter.ViewHolder> {
-        return CollectionAdapter()
+    override fun createAdapter(): PagingDataAdapter<Collection, CollectionPagingAdapter.ViewHolder> {
+        return CollectionPagingAdapter()
     }
 
     override fun onSearch(query: String?) {

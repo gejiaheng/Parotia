@@ -36,6 +36,10 @@ class CollectionRepository @Inject constructor(
             }
         ).flow
     }
+
+    suspend fun getRelatedCollections(id: Long): List<Collection> {
+        return service.listRelatedCollections(id)
+    }
 }
 
 class CollectionListPagingSource(
