@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.feed.FeedPagerFragment">
 
@@ -12,7 +13,9 @@
             android:id="@+id/tab_layout"
             style="@style/Widget.MyTheme.TabLayout.Feed"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:tabTextAppearance="?textAppearanceHeadline3" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
