@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentCollectionListBinding
-import com.melodie.parotia.ui.list.CollectionAdapter
+import com.melodie.parotia.ui.list.CollectionPagingAdapter
 import com.melodie.parotia.widget.SpacingDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -23,7 +23,7 @@ class CollectionListFragment : Fragment() {
 
     private val viewModel: CollectionListViewModel by viewModels()
     @Inject
-    lateinit var adapter: CollectionAdapter
+    lateinit var adapter: CollectionPagingAdapter
     private lateinit var binding: FragmentCollectionListBinding
 
     override fun onCreateView(

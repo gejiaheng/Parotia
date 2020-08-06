@@ -13,4 +13,5 @@
     <dimen name="profile_toolbar_elevation_end">4dp</dimen>
     <dimen name="profile_avatar_elevation_start">0dp</dimen>
     <dimen name="profile_avatar_elevation_end">6dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
 </resources>

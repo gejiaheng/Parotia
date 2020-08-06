@@ -6,15 +6,15 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.melodie.parotia.MainNavDirections
 import com.melodie.parotia.databinding.ItemPhotoBinding
 import com.melodie.parotia.model.Photo
+import com.melodie.parotia.ui.list.diff.PhotoDiff
 import javax.inject.Inject
 
-class PhotoAdapter @Inject constructor() : PagingDataAdapter<Photo, PhotoAdapter.ViewHolder>(
-    PHOTO_DIFF
+class PhotoPagingAdapter @Inject constructor() : PagingDataAdapter<Photo, PhotoPagingAdapter.ViewHolder>(
+    PhotoDiff
 ) {
 
     private val set = ConstraintSet()
@@ -45,15 +45,5 @@ class PhotoAdapter @Inject constructor() : PagingDataAdapter<Photo, PhotoAdapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position), set)
-    }
-
-    companion object {
-        private val PHOTO_DIFF = object : DiffUtil.ItemCallback<Photo>() {
-            override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean =
-                oldItem.id == newItem.id
-
-            override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean =
-                oldItem == newItem
-        }
     }
 }

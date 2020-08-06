@@ -17,4 +17,6 @@
 
     <string name="feed_popular_title">Popular</string>
     <string name="feed_latest_title">Latest</string>
+
+    <string name="collection_related_title">You might also like</string>
 </resources>

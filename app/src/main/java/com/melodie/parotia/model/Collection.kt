@@ -22,7 +22,8 @@ data class Collection(
             id,
             title,
             description,
-            cover_photo.urls.regular
+            user.profile_image.medium,
+            user.name
         )
     }
 }

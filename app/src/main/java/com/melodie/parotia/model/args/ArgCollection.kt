@@ -8,5 +8,6 @@ data class ArgCollection(
     val id: Long,
     val title: String,
     val description: String?,
-    val coverUrl: String
+    val userAvatar: String,
+    val userName: String
 ) : Parcelable

@@ -2,4 +2,6 @@
 <resources>
     <integer name="photo_spans">2</integer>
     <integer name="collection_spans">2</integer>
+    <!-- Horizontal photo spans in collection details page -->
+    <integer name="collection_photos_span">3</integer>
 </resources>
