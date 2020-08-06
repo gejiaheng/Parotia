@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
             type="com.melodie.parotia.ui.collection.detail.CollectionViewModel" />
@@ -40,9 +44,9 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
             android:layout_width="0dp"
-            android:paddingTop="16dp"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:layout_height="match_parent">
+            android:paddingTop="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,6 +82,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="64dp"
                     android:text="@{viewModel.collection.description}"
+                    android:visibility="@{TextUtils.isEmpty(viewModel.collection.description) ? View.GONE : View.VISIBLE}"
                     tools:text="Inside the home, interior decorating, den, table, chair, living room, dining room, chaise, sofa, bench, bed, bedroom, kitchen, knickknacks." />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -102,7 +107,9 @@
                     android:background="?colorSurfaceInverted"
                     android:clipChildren="false"
                     android:clipToPadding="false"
-                    android:padding="@dimen/item_spacing" />
+                    android:paddingHorizontal="@dimen/item_spacing"
+                    android:paddingTop="@dimen/item_spacing"
+                    android:paddingBottom="96dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.motion.widget.MotionLayout>
