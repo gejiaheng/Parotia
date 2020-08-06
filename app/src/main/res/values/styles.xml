@@ -1,12 +1,17 @@
 <resources>
     <!--    https://material.io/develop/android/components/tab-layout/-->
     <style name="Widget.MyTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabTextColor">@color/tab_text_color_selector</item>
     </style>
 
     <style name="Widget.MyTheme.TabLayout.Feed">
         <item name="tabIndicatorHeight">4dp</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="tabMode">scrollable</item>
+        <item name="tabPaddingStart">16dp</item>
+        <item name="tabPaddingEnd">16dp</item>
+        <item name="tabPaddingTop">12dp</item>
+        <item name="tabPaddingBottom">12dp</item>
     </style>
 
     <style name="Widget.MyTheme.TabLayout.Common">
