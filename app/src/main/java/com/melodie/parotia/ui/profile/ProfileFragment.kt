@@ -15,6 +15,7 @@ import com.melodie.parotia.ui.profile.collection.UserCollectionFragment
 import com.melodie.parotia.ui.profile.like.UserLikedPhotoFragment
 import com.melodie.parotia.ui.profile.photo.UserPhotoFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_profile_login.view.btn_login
 import java.lang.IllegalArgumentException
 
 @AndroidEntryPoint
@@ -36,7 +37,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.authButton.setOnClickListener { _ ->
+        binding.loginLayout.btn_login.setOnClickListener { _ ->
             viewModel.startOauth(requireActivity())
         }
         binding.pager.adapter =
