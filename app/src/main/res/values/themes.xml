@@ -18,6 +18,7 @@
         <!--text fields.-->
         <item name="android:colorBackground">#ffffff</item>
         <item name="colorSurface">#ffffff</item>
+        <item name="colorSurfaceInverted">#000000</item>
         <item name="colorError">#b00020</item>
         <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
         <!--on which they appear.-->

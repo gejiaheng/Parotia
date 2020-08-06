@@ -25,23 +25,23 @@
             android:id="@+id/btn_back"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="@id/toolbar"
-            app:layout_constraintTop_toTopOf="@id/toolbar" />
+            android:src="@drawable/ic_arrow_back" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:singleLine="true"
             android:text="@{viewModel.collection.title}"
-            android:textAppearance="?textAppearanceHeadline5"
+            android:textAppearance="?textAppearanceHeadline4"
             tools:text="Home Sweet Home" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
             android:layout_width="0dp"
+            android:paddingTop="16dp"
+            android:clipToPadding="false"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -49,12 +49,27 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/user_avatar"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="16dp"
-                    app:imageUrl="@{viewModel.collection.userAvatar}" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/user_avatar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        app:imageUrl="@{viewModel.collection.userAvatar}"
+                        app:shapeAppearanceOverlay="@style/CircleImage" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{viewModel.collection.userName}"
+                        tools:text="Babara Jin" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,21 +83,23 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_photos"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="496dp"
                     android:layout_marginTop="24dp"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     android:padding="@dimen/item_spacing" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?colorSurfaceInverted"
                     android:text="@string/collection_related_title" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_related"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="?colorSurfaceInverted"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     android:padding="@dimen/item_spacing" />

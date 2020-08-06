@@ -11,6 +11,13 @@
             motion:dragDirection="dragUp"
             motion:touchAnchorId="@id/title"
             motion:touchAnchorSide="bottom" />
+
+        <KeyFrameSet>
+            <KeyAttribute
+                android:elevation="@dimen/toolbar_elevation"
+                motion:framePosition="5"
+                motion:motionTarget="@id/title" />
+        </KeyFrameSet>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -18,24 +25,31 @@
             android:id="@id/toolbar"
             android:layout_width="0dp"
             android:layout_height="?actionBarSize"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
-            android:elevation="0dp" />
-
-        <Constraint
-            android:id="@id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:elevation="0dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/toolbar">
-            <CustomAttribute
-                motion:attributeName="textSize"
-                motion:customFloatValue="28" />
-        </Constraint>
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:elevation="0dp"
+            motion:layout_constraintBottom_toBottomOf="@id/toolbar"
+            motion:layout_constraintStart_toStartOf="@id/toolbar"
+            motion:layout_constraintTop_toTopOf="@id/toolbar" />
+
+        <Constraint
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:elevation="0dp"
+            android:scaleX="1"
+            android:scaleY="1"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <Constraint
             android:id="@id/nested_scroll_view"
@@ -51,24 +65,31 @@
             android:id="@id/toolbar"
             android:layout_width="0dp"
             android:layout_height="?actionBarSize"
+            android:elevation="@dimen/toolbar_elevation"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
-            android:elevation="4dp" />
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:elevation="@dimen/toolbar_elevation"
+            android:src="@drawable/ic_arrow_back"
+            motion:layout_constraintBottom_toBottomOf="@id/toolbar"
+            motion:layout_constraintStart_toStartOf="@id/toolbar"
+            motion:layout_constraintTop_toTopOf="@id/toolbar" />
 
         <Constraint
             android:id="@id/title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
+            android:elevation="@dimen/toolbar_elevation"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
             motion:layout_constraintBottom_toBottomOf="@id/toolbar"
-            motion:layout_constraintEnd_toEndOf="@id/toolbar"
             motion:layout_constraintStart_toEndOf="@id/btn_back"
-            motion:layout_constraintTop_toTopOf="@id/toolbar">
-            <CustomAttribute
-                motion:attributeName="textSize"
-                motion:customFloatValue="20" />
-        </Constraint>
+            motion:layout_constraintTop_toTopOf="@id/toolbar" />
 
         <Constraint
             android:id="@id/nested_scroll_view"
