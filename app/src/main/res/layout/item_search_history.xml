@@ -5,5 +5,6 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
     android:minHeight="40dp"
+    android:textAllCaps="false"
     android:textAppearance="?textAppearanceButton"
     app:chipCornerRadius="4dp" />
