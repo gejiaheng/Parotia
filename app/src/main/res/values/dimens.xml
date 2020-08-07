@@ -3,15 +3,19 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="item_spacing">4dp</dimen>
+    <dimen name="content_margin">16dp</dimen>
     <dimen name="list_top_spacing">28dp</dimen>
     <dimen name="radius_xlarge">16dp</dimen>
     <dimen name="radius_large">12dp</dimen>
     <dimen name="radius_medium">8dp</dimen>
-    <dimen name="profile_header_padding">16dp</dimen>
-    <dimen name="profile_avatar">106dp</dimen>
+    <dimen name="profile_avatar">104dp</dimen>
+    <dimen name="profile_avatar_collapsed">32dp</dimen>
     <dimen name="profile_toolbar_elevation_start">0dp</dimen>
     <dimen name="profile_toolbar_elevation_end">4dp</dimen>
     <dimen name="profile_avatar_elevation_start">0dp</dimen>
     <dimen name="profile_avatar_elevation_end">6dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="toolbar_height_large">64dp</dimen>
+    <dimen name="toolbar_margin_horizontal">16dp</dimen>
+    <dimen name="toolbar_margin_vertical">32dp</dimen>
 </resources>

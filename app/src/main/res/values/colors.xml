@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_on_bg_20">#33000000</color>
     <color name="color_on_bg_50">#80000000</color>
     <color name="color_on_bg_80">#cc000000</color>
     <color name="color_on_bg_inverted">#ffffff</color>

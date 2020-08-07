@@ -19,4 +19,8 @@
     <string name="feed_latest_title">Latest</string>
 
     <string name="collection_related_title">You might also like</string>
+
+    <string name="profile">Profile</string>
+    <string name="profile_login_prompt">Log in your unsplash account to unlock more features</string>
+    <string name="profile_btn_login">Log in</string>
 </resources>
