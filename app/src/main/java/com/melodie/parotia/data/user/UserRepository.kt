@@ -15,8 +15,9 @@ import com.melodie.parotia.model.UserStats
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
-class UserRepository {
+class UserRepository @Inject constructor() {
     suspend fun getMe(): User {
         return UnsplashApi.userService.getMe()
     }
