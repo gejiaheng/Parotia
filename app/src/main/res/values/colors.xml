@@ -4,4 +4,13 @@
     <color name="color_on_bg_50">#80000000</color>
     <color name="color_on_bg_80">#cc000000</color>
     <color name="color_on_bg_inverted">#ffffff</color>
+
+    <color name="search_history_color_0">#ff5934</color>
+    <color name="search_history_color_1">#ff416e</color>
+    <color name="search_history_color_2">#9441ff</color>
+    <color name="search_history_color_3">#1058c6</color>
+    <color name="search_history_color_0_20">#33ff5934</color>
+    <color name="search_history_color_1_20">#33ff416e</color>
+    <color name="search_history_color_2_20">#339441ff</color>
+    <color name="search_history_color_3_20">#331058c6</color>
 </resources>
