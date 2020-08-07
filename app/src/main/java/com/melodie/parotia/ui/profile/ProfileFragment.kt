@@ -16,7 +16,6 @@ import com.melodie.parotia.ui.profile.like.UserLikedPhotoFragment
 import com.melodie.parotia.ui.profile.photo.UserPhotoFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile_login.view.btn_login
-import java.lang.IllegalArgumentException
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -50,10 +49,7 @@ class ProfileFragment : Fragment() {
                 2 -> tab.text = "Collection"
             }
         }.attach()
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         binding.viewModel = viewModel
     }
 }
