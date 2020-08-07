@@ -1,7 +1,10 @@
 package com.melodie.parotia.ui.profile
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -75,5 +78,39 @@ class ProfileViewModel @ViewModelInject constructor(
             TokenLiveData.value = token
             preference.token = token
         }
+    }
+
+    fun toMap() = View.OnClickListener {
+        val gmmIntentUri = Uri.parse("geo:0,0?q=${_me.value?.location}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        it.context.startActivity(mapIntent)
+    }
+
+    fun toTwitter() = View.OnClickListener {
+        var intent = Intent(Intent.ACTION_VIEW)
+        val twitterId = _me.value?.twitter_username
+        try {
+            // get the Twitter app if possible
+            it.context.packageManager.getPackageInfo("com.twitter.android", 0)
+            intent.data = Uri.parse("twitter://user?screen_name=$twitterId")
+        } catch (e: PackageManager.NameNotFoundException) {
+            // no Twitter app, revert to browser
+            intent.data = Uri.parse("https://twitter.com/$twitterId")
+        }
+        it.context.startActivity(intent)
+    }
+
+    fun toInstagram() = View.OnClickListener {
+        val intent = Intent(Intent.ACTION_VIEW)
+        val insId = _me.value?.instagram_username
+        try {
+            it.context.packageManager.getPackageInfo("com.instagram.android", 0)
+            intent.data = Uri.parse("http://instagram.com/_u/$insId")
+            intent.setPackage("com.instagram.android")
+        } catch (e: PackageManager.NameNotFoundException) {
+            intent.data = Uri.parse("http://instagram.com/$insId")
+        }
+        it.context.startActivity(intent)
     }
 }
