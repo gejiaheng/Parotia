@@ -11,37 +11,23 @@
             motion:dragDirection="dragUp"
             motion:touchAnchorId="@id/tab_layout"
             motion:touchAnchorSide="middle" />
-
-        <KeyFrameSet>
-            <KeyAttribute
-                android:elevation="@dimen/profile_avatar_elevation_end"
-                motion:framePosition="5"
-                motion:motionTarget="@id/avatar" />
-        </KeyFrameSet>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@id/tab_layout_hat"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="40dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/downloads_num" />
-
-        <Constraint
-            android:id="@id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:elevation="@dimen/profile_toolbar_elevation_start" />
+            motion:layout_constraintTop_toBottomOf="@id/barrier1" />
 
         <Constraint
             android:id="@id/avatar"
             android:layout_width="@dimen/profile_avatar"
             android:layout_height="@dimen/profile_avatar"
-            android:layout_marginStart="@dimen/profile_header_padding"
-            android:layout_marginTop="@dimen/profile_header_padding"
-            android:elevation="@dimen/profile_avatar_elevation_start"
+            android:layout_marginStart="@dimen/content_margin"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -49,8 +35,7 @@
             android:id="@id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:elevation="@dimen/profile_toolbar_elevation_start"
+            android:layout_marginStart="@dimen/content_margin"
             motion:layout_constraintBottom_toBottomOf="@id/toolbar"
             motion:layout_constraintStart_toStartOf="@id/toolbar"
             motion:layout_constraintTop_toTopOf="@id/toolbar" />
@@ -59,25 +44,18 @@
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@id/tab_layout_hat"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <Constraint
-            android:id="@id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:elevation="@dimen/profile_toolbar_elevation_end" />
-
-        <Constraint
             android:id="@id/avatar"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="@dimen/profile_header_padding"
-            android:elevation="@dimen/profile_avatar_elevation_end"
+            android:layout_width="@dimen/profile_avatar_collapsed"
+            android:layout_height="@dimen/profile_avatar_collapsed"
+            android:layout_marginStart="@dimen/content_margin"
             motion:layout_constraintBottom_toBottomOf="@id/toolbar"
             motion:layout_constraintStart_toStartOf="@id/toolbar"
             motion:layout_constraintTop_toTopOf="@id/toolbar" />
@@ -86,8 +64,7 @@
             android:id="@id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/profile_toolbar_elevation_end"
-            android:layout_marginStart="@dimen/profile_header_padding"
+            android:layout_marginStart="@dimen/content_margin"
             motion:layout_constraintBottom_toBottomOf="@id/toolbar"
             motion:layout_constraintStart_toEndOf="@id/avatar"
             motion:layout_constraintTop_toTopOf="@id/toolbar" />
