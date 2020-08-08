@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,6 +25,7 @@ import com.melodie.parotia.ui.search.photo.SearchPhotoFragment
 import com.melodie.parotia.ui.search.user.SearchUserFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class SearchPagerFragment : Fragment() {
@@ -86,8 +89,17 @@ class SearchPagerFragment : Fragment() {
             Observer { histories ->
                 binding.historyGroup.removeAllViews()
                 histories.forEach {
-                    val chip = LayoutInflater.from(context).inflate(R.layout.item_search_history, binding.historyGroup, false) as Chip
+                    val chip = LayoutInflater.from(context)
+                        .inflate(R.layout.item_search_history, binding.historyGroup, false) as Chip
                     chip.text = it
+                    val hc = HistoryColor.randColor()
+                    chip.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            hc.color
+                        )
+                    )
+                    chip.setChipBackgroundColorResource(hc.colorBg)
                     chip.setOnClickListener {
                         binding.searchView.setQuery(chip.text, true)
                     }
@@ -110,6 +122,17 @@ class SearchPagerFragment : Fragment() {
     private fun dismissKeyboard(view: View) {
         val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+}
+
+enum class HistoryColor(@ColorRes val color: Int, @ColorRes val colorBg: Int) {
+    COLOR_0(R.color.search_history_color_0, R.color.search_history_color_0_20),
+    COLOR_1(R.color.search_history_color_1, R.color.search_history_color_1_20),
+    COLOR_2(R.color.search_history_color_2, R.color.search_history_color_2_20),
+    COLOR_3(R.color.search_history_color_3, R.color.search_history_color_3_20);
+
+    companion object {
+        fun randColor() = HistoryColor.values()[Random.nextInt(4)]
     }
 }
 
