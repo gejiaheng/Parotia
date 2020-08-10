@@ -1,7 +1,6 @@
 package com.melodie.parotia.ui.profile.like
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melodie.parotia.R
 import com.melodie.parotia.model.Photo
 import com.melodie.parotia.ui.list.PhotoPagingAdapter
-import com.melodie.parotia.ui.profile.ProfileViewModel
 import com.melodie.parotia.ui.profile.UserContentFragment
 import com.melodie.parotia.widget.SpacingDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,12 +17,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class UserLikedPhotoFragment : UserContentFragment<Photo, PhotoPagingAdapter.ViewHolder>() {
 
-    private val profileViewModel: ProfileViewModel by viewModels(
-        ownerProducer = { requireParentFragment() }
-    )
-    private val viewModel: UserLikedPhotoViewModel by viewModels(
-        factoryProducer = { UserLikedPhotoViewModelFactory(profileViewModel.username) }
-    )
+    private val viewModel: UserLikedPhotoViewModel by viewModels()
 
     override fun setupRecyclerView(view: RecyclerView) {
         view.addItemDecoration(SpacingDecoration())
@@ -40,18 +33,10 @@ class UserLikedPhotoFragment : UserContentFragment<Photo, PhotoPagingAdapter.Vie
     }
 
     override fun subscribe() {
-        profileViewModel.username.observe(
-            viewLifecycleOwner,
-            Observer { name ->
-                if (!name.isNullOrEmpty()) {
-                    lifecycleScope.launch {
-                        viewModel.getLikedPhotos().collectLatest {
-                            adapter.submitData(it)
-                        }
-                    }
-                } else {
-                }
+        lifecycleScope.launch {
+            viewModel.getLikedPhotos().collectLatest {
+                adapter.submitData(it)
             }
-        )
+        }
     }
 }

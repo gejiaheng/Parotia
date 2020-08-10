@@ -4,6 +4,8 @@
     <string name="title_collection_list">Collections</string>
     <string name="title_search_entry">Search</string>
     <string name="title_account">Account</string>
+    <string name="title_login_prompt">Login Prompt</string>
+    <string name="title_profile">Profile</string>
     <string name="title_search_pager">Search</string>
     <string name="title_photo">Photo</string>
     <string name="title_collection">Collection</string>

@@ -2,13 +2,13 @@ package com.melodie.parotia
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.melodie.parotia.ui.profile.ProfileViewModel
+import com.melodie.parotia.ui.account.AccountViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO
@@ -16,6 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 // prevent top fragment from recreating themselves every time
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val accountViewModel: AccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +40,7 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         val code = intent?.data?.getQueryParameter("code")
         if (code != null) {
-            val authViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-            authViewModel.oauth(code)
+            accountViewModel.getToken(code)
         } else {
         }
     }

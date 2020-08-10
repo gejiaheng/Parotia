@@ -17,6 +17,10 @@
         android:id="@+id/action_global_collection"
         app:destination="@id/navigation_collection" />
 
+    <action
+        android:id="@+id/action_global_profile"
+        app:destination="@id/navigation_user_profile" />
+
     <fragment
         android:id="@+id/navigation_feed"
         android:name="com.melodie.parotia.ui.feed.FeedPagerFragment"
@@ -36,10 +40,26 @@
         tools:layout="@layout/fragment_search_entry"></fragment>
 
     <fragment
-        android:id="@+id/navigation_account"
-        android:name="com.melodie.parotia.ui.profile.ProfileFragment"
-        android:label="@string/title_account"
+        android:id="@+id/navigation_login_prompt"
+        android:name="com.melodie.parotia.ui.account.LoginPromptFragment"
+        android:label="@string/title_login_prompt"
+        tools:layout="@layout/fragment_login_prompt" />
+
+    <fragment
+        android:id="@+id/navigation_my_profile"
+        android:name="com.melodie.parotia.ui.profile.MyProfileFragment"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_user_profile"
+        android:name="com.melodie.parotia.ui.profile.UserProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile">
+        <argument
+            android:name="user"
+            app:argType="com.melodie.parotia.model.User" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search_pager"

@@ -26,9 +26,6 @@ class App : Application() {
 //            flipperClient.start()
         }
 
-        val token = preferences.token
-        if (!token.isNullOrEmpty()) {
-            TokenLiveData.value = token
-        }
+        TokenLiveData.value = preferences.token
     }
 }

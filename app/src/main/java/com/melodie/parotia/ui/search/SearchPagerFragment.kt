@@ -30,8 +30,6 @@ import kotlin.random.Random
 @AndroidEntryPoint
 class SearchPagerFragment : Fragment() {
 
-    @Inject
-    lateinit var searchPagerAdapter: SearchPagerAdapter
     private lateinit var binding: FragmentSearchPagerBinding
     private val viewModel: SearchPagerViewModel by viewModels()
     private val args: SearchPagerFragmentArgs by navArgs()
@@ -52,7 +50,7 @@ class SearchPagerFragment : Fragment() {
         binding.toolbar.apply {
             // TODO
         }
-        binding.pager.adapter = searchPagerAdapter
+        binding.pager.adapter = SearchPagerAdapter(this)
         val tabLayout: TabLayout = view.findViewById(R.id.tab_layout)
         TabLayoutMediator(tabLayout, binding.pager) { tab, position ->
             tab.text = getString(SearchType.fromPosition(position).title)
