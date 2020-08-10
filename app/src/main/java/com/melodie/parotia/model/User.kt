@@ -1,5 +1,9 @@
 package com.melodie.parotia.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class User(
     val id: String,
     val updated_at: String,
@@ -22,25 +26,28 @@ data class User(
     val profile_image: ProfileImage,
     val badge: Badge,
     val links: ULinks
-)
+) : Parcelable
 
+@Parcelize
 data class ULinks(
     val self: String,
     val html: String,
     val photos: String,
     val likes: String,
     val portfolio: String
-)
+) : Parcelable
 
+@Parcelize
 data class ProfileImage(
     val small: String,
     val medium: String,
     val large: String
-)
+) : Parcelable
 
+@Parcelize
 data class Badge(
     val title: String,
     val primary: Boolean,
     val slug: String,
     val link: String
-)
+) : Parcelable
