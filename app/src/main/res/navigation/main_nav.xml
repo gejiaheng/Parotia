@@ -36,9 +36,15 @@
         tools:layout="@layout/fragment_search_entry"></fragment>
 
     <fragment
-        android:id="@+id/navigation_account"
+        android:id="@+id/navigation_login_prompt"
+        android:name="com.melodie.parotia.ui.account.LoginPromptFragment"
+        android:label="@string/title_login_prompt"
+        tools:layout="@layout/fragment_login_prompt" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
         android:name="com.melodie.parotia.ui.profile.ProfileFragment"
-        android:label="@string/title_account"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
