@@ -38,7 +38,7 @@ class SearchEntryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = entryViewModel
         binding.searchBarClick = View.OnClickListener {
-            entryViewModel.startSearch(binding)
+            entryViewModel.startSearch(binding, null)
         }
         historyViewModel.history.observe(
             viewLifecycleOwner,
@@ -57,6 +57,7 @@ class SearchEntryFragment : Fragment() {
                     )
                     chip.setChipBackgroundColorResource(hc.colorBg)
                     chip.setOnClickListener {
+                        entryViewModel.startSearch(binding, chip.text.toString())
                     }
                     binding.historyGroup.addView(chip)
                 }

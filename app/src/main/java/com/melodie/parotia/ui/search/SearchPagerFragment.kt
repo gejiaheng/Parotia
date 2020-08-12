@@ -58,9 +58,6 @@ class SearchPagerFragment : Fragment() {
     @ExperimentalStdlibApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Search bar
-        binding.searchInput.doAfterTextChanged {
-            pagerViewModel.onQueryTextChange(it?.toString())
-        }
         binding.searchInput.apply {
             doAfterTextChanged {
                 pagerViewModel.onQueryTextChange(it?.toString())
@@ -68,8 +65,7 @@ class SearchPagerFragment : Fragment() {
             setOnEditorActionListener { view, actionId, event ->
                 dismissKeyboard(view)
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    pagerViewModel.onQueryTextSubmit(this@apply.text.toString())
-                    historyViewModel.onQueryTextSubmit(this@apply.text.toString())
+                    search(this@apply.text.toString(), false)
                     true
                 } else {
                     false
@@ -78,8 +74,10 @@ class SearchPagerFragment : Fragment() {
         }
         pagerViewModel.onQueryTextChange(args.query)
         if (!args.query.isNullOrEmpty()) {
-            pagerViewModel.onQueryTextSubmit(args.query!!)
-            historyViewModel.onQueryTextSubmit(args.query!!)
+            search(args.query!!, true)
+        }
+        binding.btnClear.setOnClickListener {
+            binding.searchInput.text = null
         }
 
         // ViewPager
@@ -107,7 +105,7 @@ class SearchPagerFragment : Fragment() {
                     )
                     chip.setChipBackgroundColorResource(hc.colorBg)
                     chip.setOnClickListener {
-//                        binding.searchInput.text = chip.text
+                        search(chip.text.toString(), true)
                     }
                     binding.historyGroup.addView(chip)
                 }
@@ -118,6 +116,15 @@ class SearchPagerFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         dismissKeyboard(binding.searchInput)
+    }
+
+    @ExperimentalStdlibApi
+    private fun search(query: String, fill: Boolean) {
+        if (fill) {
+            binding.searchInput.setText(query)
+        }
+        pagerViewModel.onQueryTextSubmit(query)
+        historyViewModel.onQueryTextSubmit(query)
     }
 
     private fun showKeyboard(view: View) {

@@ -51,10 +51,8 @@ class SearchEntryViewModel @ViewModelInject constructor(
 //        }
     }
 
-    fun startSearch(
-        binding: FragmentSearchEntryBinding
-    ) {
-        val action = MainNavDirections.actionGlobalSearch(null)
+    fun startSearch(binding: FragmentSearchEntryBinding, query: String?) {
+        val action = MainNavDirections.actionGlobalSearch(query)
         val context = binding.root.context
         val extras = FragmentNavigatorExtras(
             binding.transitionLayout to context.getString(R.string.shared_search_layout),
