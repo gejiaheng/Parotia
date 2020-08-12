@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -84,7 +83,12 @@ class SearchPagerFragment : Fragment() {
         binding.pager.adapter = SearchPagerAdapter(this)
         val tabLayout: TabLayout = view.findViewById(R.id.tab_layout)
         TabLayoutMediator(tabLayout, binding.pager) { tab, position ->
-            tab.text = getString(SearchType.fromPosition(position).title)
+            tab.text = when (position) {
+                0 -> getString(R.string.search_type_photo)
+                1 -> getString(R.string.search_type_collection)
+                2 -> getString(R.string.search_type_user)
+                else -> throw IllegalArgumentException("Invalid position argument: $position")
+            }
         }.attach()
 
         binding.viewModel = pagerViewModel
@@ -135,23 +139,6 @@ class SearchPagerFragment : Fragment() {
     private fun dismissKeyboard(view: View) {
         val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-}
-
-enum class SearchType(@StringRes val title: Int) {
-    PHOTO(R.string.search_type_photo),
-    COLLECTION(R.string.search_type_collection),
-    USER(R.string.search_type_user);
-
-    companion object {
-        fun fromPosition(pos: Int): SearchType {
-            return when (pos) {
-                0 -> PHOTO
-                1 -> COLLECTION
-                2 -> USER
-                else -> throw IllegalArgumentException("Invalid position argument")
-            }
-        }
     }
 }
 
