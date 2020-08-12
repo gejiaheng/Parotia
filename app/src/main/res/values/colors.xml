@@ -4,6 +4,7 @@
     <color name="color_on_bg_50">#80000000</color>
     <color name="color_on_bg_80">#cc000000</color>
     <color name="color_on_bg_inverted">#ffffff</color>
+    <color name="color_bg_8">#14000000</color>
 
     <color name="search_history_color_0">#ff5934</color>
     <color name="search_history_color_1">#ff416e</color>

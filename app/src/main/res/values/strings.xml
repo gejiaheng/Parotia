@@ -25,4 +25,11 @@
     <string name="profile">Profile</string>
     <string name="profile_login_prompt">Log in your unsplash account to unlock more features</string>
     <string name="profile_btn_login">Log in</string>
+
+    <string name="shared_search_layout">searchLayout</string>
+    <string name="shared_search_bar">searchBar</string>
+    <string name="shared_search_icon">searchIcon</string>
+    <string name="shared_search_hint_text">searchHintText</string>
+    <string name="shared_search_history_title">searchHistoryTitle</string>
+    <string name="shared_search_history_group">searchHistoryGroup</string>
 </resources>

@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.SearchView
-import androidx.annotation.ColorRes
-import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
@@ -21,18 +22,26 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentSearchPagerBinding
 import com.melodie.parotia.ui.search.collection.SearchCollectionFragment
+import com.melodie.parotia.ui.search.history.HistoryColor
+import com.melodie.parotia.ui.search.history.SearchHistoryViewModel
 import com.melodie.parotia.ui.search.photo.SearchPhotoFragment
 import com.melodie.parotia.ui.search.user.SearchUserFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class SearchPagerFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchPagerBinding
-    private val viewModel: SearchPagerViewModel by viewModels()
+    private val pagerViewModel: SearchPagerViewModel by viewModels()
+    private val historyViewModel: SearchHistoryViewModel by activityViewModels()
     private val args: SearchPagerFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,46 +56,47 @@ class SearchPagerFragment : Fragment() {
 
     @ExperimentalStdlibApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.toolbar.apply {
-            // TODO
+        // Search bar
+        binding.searchInput.apply {
+            doAfterTextChanged {
+                pagerViewModel.onQueryTextChange(it?.toString())
+            }
+            setOnEditorActionListener { view, actionId, event ->
+                dismissKeyboard(view)
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search(this@apply.text.toString(), false)
+                    true
+                } else {
+                    false
+                }
+            }
         }
+        pagerViewModel.onQueryTextChange(args.query)
+        if (!args.query.isNullOrEmpty()) {
+            search(args.query!!, true)
+        }
+        binding.btnClear.setOnClickListener {
+            binding.searchInput.text = null
+        }
+
+        // ViewPager
         binding.pager.adapter = SearchPagerAdapter(this)
         val tabLayout: TabLayout = view.findViewById(R.id.tab_layout)
         TabLayoutMediator(tabLayout, binding.pager) { tab, position ->
-            tab.text = getString(SearchType.fromPosition(position).title)
+            tab.text = when (position) {
+                0 -> getString(R.string.search_type_photo)
+                1 -> getString(R.string.search_type_collection)
+                2 -> getString(R.string.search_type_user)
+                else -> throw IllegalArgumentException("Invalid position argument: $position")
+            }
         }.attach()
 
-        binding.searchView.apply {
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    dismissKeyboard(this@apply)
-                    viewModel.onQueryTextSubmit(query)
-                    return true
-                }
-
-                override fun onQueryTextChange(query: String): Boolean {
-                    viewModel.onQueryTextChange(query)
-                    return true
-                }
-            })
-
-            setOnQueryTextFocusChangeListener { view, hasFocus ->
-                if (hasFocus) {
-                    showKeyboard(view.findFocus())
-                }
-            }
-            if (!args.query.isNullOrEmpty()) {
-                setQuery(args.query, true)
-            }
-            requestFocus()
-        }
-
-        binding.viewModel = viewModel
-        viewModel.history.observe(
+        binding.viewModel = pagerViewModel
+        historyViewModel.history.observe(
             viewLifecycleOwner,
-            Observer { histories ->
+            Observer { history ->
                 binding.historyGroup.removeAllViews()
-                histories.forEach {
+                history.forEach {
                     val chip = LayoutInflater.from(context)
                         .inflate(R.layout.item_search_history, binding.historyGroup, false) as Chip
                     chip.text = it
@@ -99,7 +109,7 @@ class SearchPagerFragment : Fragment() {
                     )
                     chip.setChipBackgroundColorResource(hc.colorBg)
                     chip.setOnClickListener {
-                        binding.searchView.setQuery(chip.text, true)
+                        search(chip.text.toString(), true)
                     }
                     binding.historyGroup.addView(chip)
                 }
@@ -109,7 +119,16 @@ class SearchPagerFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        dismissKeyboard(binding.searchView)
+        dismissKeyboard(binding.searchInput)
+    }
+
+    @ExperimentalStdlibApi
+    private fun search(query: String, fill: Boolean) {
+        if (fill) {
+            binding.searchInput.setText(query)
+        }
+        pagerViewModel.onQueryTextSubmit(query)
+        historyViewModel.onQueryTextSubmit(query)
     }
 
     private fun showKeyboard(view: View) {
@@ -120,34 +139,6 @@ class SearchPagerFragment : Fragment() {
     private fun dismissKeyboard(view: View) {
         val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-}
-
-enum class HistoryColor(@ColorRes val color: Int, @ColorRes val colorBg: Int) {
-    COLOR_0(R.color.search_history_color_0, R.color.search_history_color_0_20),
-    COLOR_1(R.color.search_history_color_1, R.color.search_history_color_1_20),
-    COLOR_2(R.color.search_history_color_2, R.color.search_history_color_2_20),
-    COLOR_3(R.color.search_history_color_3, R.color.search_history_color_3_20);
-
-    companion object {
-        fun randColor() = HistoryColor.values()[Random.nextInt(4)]
-    }
-}
-
-enum class SearchType(@StringRes val title: Int) {
-    PHOTO(R.string.search_type_photo),
-    COLLECTION(R.string.search_type_collection),
-    USER(R.string.search_type_user);
-
-    companion object {
-        fun fromPosition(pos: Int): SearchType {
-            return when (pos) {
-                0 -> PHOTO
-                1 -> COLLECTION
-                2 -> USER
-                else -> throw IllegalArgumentException("Invalid position argument")
-            }
-        }
     }
 }
 

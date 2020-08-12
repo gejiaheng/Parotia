@@ -15,64 +15,104 @@
             type="com.melodie.parotia.ui.search.SearchPagerViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:contentInsetStartWithNavigation="16dp"
-            app:navigationIcon="@drawable/ic_arrow_back">
-
-            <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:iconifiedByDefault="false"
-                android:imeOptions="actionDone|flagNoExtractUi"
-                android:queryBackground="@android:color/transparent"
-                android:queryHint="@string/search_input_hint"
-                android:searchHintIcon="@null"
-                android:searchIcon="@null"
-                tools:targetApi="lollipop_mr1" />
-        </com.google.android.material.appbar.MaterialToolbar>
+        android:transitionName="@string/shared_search_layout">
 
         <View
-            android:layout_width="match_parent"
+            android:id="@+id/search_bar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/toolbar_height_large"
+            android:transitionName="@string/shared_search_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_inset"
+            android:transitionName="@string/shared_search_icon"
+            app:layout_constraintBottom_toBottomOf="@id/search_bar"
+            app:layout_constraintStart_toStartOf="@id/search_bar"
+            app:layout_constraintTop_toTopOf="@id/search_bar" />
+
+        <ImageView
+            android:id="@+id/btn_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_clear_inset"
+            android:visibility="@{viewModel.inputEmpty ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/search_bar"
+            app:layout_constraintEnd_toEndOf="@id/search_bar"
+            app:layout_constraintTop_toTopOf="@id/search_bar" />
+
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/search_input_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:lines="1"
+            android:textAppearance="?textAppearanceBody1"
+            android:textColorHint="@color/color_on_bg_50"
+            android:transitionName="@string/shared_search_hint_text"
+            app:layout_constraintBottom_toBottomOf="@id/search_bar"
+            app:layout_constraintEnd_toStartOf="@id/btn_clear"
+            app:layout_constraintStart_toEndOf="@id/btn_back"
+            app:layout_constraintTop_toTopOf="@id/search_bar" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/color_on_bg_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
         <LinearLayout
             android:id="@+id/history_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:orientation="vertical"
             android:padding="16dp"
-            android:visibility="@{ viewModel.showHistory ? View.VISIBLE : View.GONE}">
+            android:visibility="@{ viewModel.showHistory ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/search_history"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:transitionName="@string/shared_search_history_title" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/history_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                android:transitionName="@string/shared_search_history_group" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/pager_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            android:visibility="@{ viewModel.showHistory ? View.GONE : View.VISIBLE}">
+            android:visibility="@{ viewModel.showHistory ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
@@ -86,5 +126,5 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
