@@ -8,6 +8,7 @@
     <dimen name="radius_xlarge">16dp</dimen>
     <dimen name="radius_large">12dp</dimen>
     <dimen name="radius_medium">8dp</dimen>
+    <dimen name="radius_small">4dp</dimen>
     <dimen name="profile_avatar">104dp</dimen>
     <dimen name="profile_avatar_collapsed">32dp</dimen>
     <dimen name="profile_toolbar_elevation_start">0dp</dimen>

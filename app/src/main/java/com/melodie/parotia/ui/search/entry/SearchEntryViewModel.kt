@@ -3,19 +3,14 @@ package com.melodie.parotia.ui.search.entry
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.melodie.parotia.MainNavDirections
 import com.melodie.parotia.domain.search.GetSearchBannersUseCase
-import com.melodie.parotia.domain.search.GetSearchExploreUseCase
 import com.melodie.parotia.domain.search.SaveSearchBannersUseCase
 import com.melodie.parotia.domain.stats.GetStatsUseCase
 import com.melodie.parotia.model.SearchBanner
-import com.melodie.parotia.model.SearchExplore
 import com.melodie.parotia.model.Stats
 import com.melodie.parotia.result.data
 import kotlinx.coroutines.Dispatchers
@@ -26,14 +21,10 @@ import kotlinx.coroutines.launch
 class SearchEntryViewModel @ViewModelInject constructor(
     private val getStatsUseCase: GetStatsUseCase,
     private val getSearchBannersUseCase: GetSearchBannersUseCase,
-    private val saveSearchBannersUseCase: SaveSearchBannersUseCase,
-    private val getSearchExploreUseCase: GetSearchExploreUseCase
+    private val saveSearchBannersUseCase: SaveSearchBannersUseCase
 ) : ViewModel() {
 
     lateinit var totalStats: LiveData<Stats>
-
-    private val _explores = MutableLiveData<List<SearchExplore>>()
-    val explores: LiveData<List<SearchExplore>> = _explores
 
     private val _banners: MutableList<SearchBanner> = mutableListOf()
     val banner: LiveData<SearchBanner> = liveData(Dispatchers.IO) {
@@ -53,10 +44,9 @@ class SearchEntryViewModel @ViewModelInject constructor(
     }
 
     init {
-        viewModelScope.launch {
-            totalStats = getStatsUseCase(Unit).data!!.distinctUntilChanged()
-            _explores.value = getSearchExploreUseCase(Unit).data
-        }
+//        viewModelScope.launch {
+//            totalStats = getStatsUseCase(Unit).data!!.distinctUntilChanged()
+//        }
     }
 
     fun startSearch(view: View) {
@@ -72,6 +62,6 @@ class SearchEntryViewModel @ViewModelInject constructor(
     }
 
     companion object {
-        const val BANNER_INTERVAL = 5000L
+        const val BANNER_INTERVAL = 30000L
     }
 }

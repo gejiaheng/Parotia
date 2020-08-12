@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
-import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -21,17 +21,19 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentSearchPagerBinding
 import com.melodie.parotia.ui.search.collection.SearchCollectionFragment
+import com.melodie.parotia.ui.search.history.HistoryColor
+import com.melodie.parotia.ui.search.history.SearchHistoryViewModel
 import com.melodie.parotia.ui.search.photo.SearchPhotoFragment
 import com.melodie.parotia.ui.search.user.SearchUserFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class SearchPagerFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchPagerBinding
-    private val viewModel: SearchPagerViewModel by viewModels()
+    private val pagerViewModel: SearchPagerViewModel by viewModels()
+    private val historyViewModel: SearchHistoryViewModel by activityViewModels()
     private val args: SearchPagerFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -60,12 +62,13 @@ class SearchPagerFragment : Fragment() {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     dismissKeyboard(this@apply)
-                    viewModel.onQueryTextSubmit(query)
+                    pagerViewModel.onQueryTextSubmit(query)
+                    historyViewModel.onQueryTextSubmit(query)
                     return true
                 }
 
                 override fun onQueryTextChange(query: String): Boolean {
-                    viewModel.onQueryTextChange(query)
+                    pagerViewModel.onQueryTextChange(query)
                     return true
                 }
             })
@@ -81,12 +84,12 @@ class SearchPagerFragment : Fragment() {
             requestFocus()
         }
 
-        binding.viewModel = viewModel
-        viewModel.history.observe(
+        binding.viewModel = pagerViewModel
+        historyViewModel.history.observe(
             viewLifecycleOwner,
-            Observer { histories ->
+            Observer { history ->
                 binding.historyGroup.removeAllViews()
-                histories.forEach {
+                history.forEach {
                     val chip = LayoutInflater.from(context)
                         .inflate(R.layout.item_search_history, binding.historyGroup, false) as Chip
                     chip.text = it
@@ -120,17 +123,6 @@ class SearchPagerFragment : Fragment() {
     private fun dismissKeyboard(view: View) {
         val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-}
-
-enum class HistoryColor(@ColorRes val color: Int, @ColorRes val colorBg: Int) {
-    COLOR_0(R.color.search_history_color_0, R.color.search_history_color_0_20),
-    COLOR_1(R.color.search_history_color_1, R.color.search_history_color_1_20),
-    COLOR_2(R.color.search_history_color_2, R.color.search_history_color_2_20),
-    COLOR_3(R.color.search_history_color_3, R.color.search_history_color_3_20);
-
-    companion object {
-        fun randColor() = HistoryColor.values()[Random.nextInt(4)]
     }
 }
 

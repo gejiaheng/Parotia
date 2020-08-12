@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.BindingAdapter
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.Observer
+import com.google.android.material.chip.Chip
+import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentSearchEntryBinding
-import com.melodie.parotia.model.SearchExplore
-import com.melodie.parotia.widget.SpacingDecoration
+import com.melodie.parotia.ui.search.history.HistoryColor
+import com.melodie.parotia.ui.search.history.SearchHistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchEntryFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchEntryBinding
-    private val viewModel: SearchEntryViewModel by viewModels()
+    private val entryViewModel: SearchEntryViewModel by viewModels()
+    private val historyViewModel: SearchHistoryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,21 +36,31 @@ class SearchEntryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
+        binding.viewModel = entryViewModel
         binding.buttonClick = View.OnClickListener {
-            viewModel.startSearch(it)
+            entryViewModel.startSearch(it)
         }
-    }
-}
-
-@BindingAdapter("exploreItems")
-fun exploreItems(recyclerView: RecyclerView, list: List<SearchExplore>?) {
-    list ?: return
-    if (recyclerView.adapter == null) {
-        recyclerView.adapter = SearchExploreAdapter()
-    }
-    recyclerView.addItemDecoration(SpacingDecoration())
-    (recyclerView.adapter as SearchExploreAdapter).apply {
-        submitList(list)
+        historyViewModel.history.observe(
+            viewLifecycleOwner,
+            Observer { history ->
+                binding.historyGroup.removeAllViews()
+                history.forEach {
+                    val chip = LayoutInflater.from(context)
+                        .inflate(R.layout.item_search_history, binding.historyGroup, false) as Chip
+                    chip.text = it
+                    val hc = HistoryColor.randColor()
+                    chip.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            hc.color
+                        )
+                    )
+                    chip.setChipBackgroundColorResource(hc.colorBg)
+                    chip.setOnClickListener {
+                    }
+                    binding.historyGroup.addView(chip)
+                }
+            }
+        )
     }
 }

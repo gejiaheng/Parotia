@@ -23,12 +23,12 @@
         <item name="cornerSize">@dimen/radius_xlarge</item>
     </style>
 
-    <style name="ShapeAppearance.MyTheme.SearchCard" parent="ShapeAppearance.MyTheme.MediumComponent">
-        <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeTopRight">0dp</item>
-        <item name="cornerSizeBottomLeft">@dimen/radius_xlarge</item>
-        <item name="cornerSizeBottomRight">@dimen/radius_xlarge</item>
-    </style>
+<!--    <style name="ShapeAppearance.MyTheme.SearchCard" parent="ShapeAppearance.MyTheme.MediumComponent">-->
+<!--        <item name="cornerSizeTopLeft">0dp</item>-->
+<!--        <item name="cornerSizeTopRight">0dp</item>-->
+<!--        <item name="cornerSizeBottomLeft">@dimen/radius_xlarge</item>-->
+<!--        <item name="cornerSizeBottomRight">@dimen/radius_xlarge</item>-->
+<!--    </style>-->
 
     <style name="Widget.MyTheme.SearchHistory" parent="Widget.MaterialComponents.Chip.Action">
         <item name="chipMinHeight">36dp</item>
