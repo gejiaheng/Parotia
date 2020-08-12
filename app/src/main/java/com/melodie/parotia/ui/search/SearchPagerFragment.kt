@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.SearchView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
@@ -36,6 +38,12 @@ class SearchPagerFragment : Fragment() {
     private val historyViewModel: SearchHistoryViewModel by activityViewModels()
     private val args: SearchPagerFragmentArgs by navArgs()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,40 +57,37 @@ class SearchPagerFragment : Fragment() {
 
     @ExperimentalStdlibApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.toolbar.apply {
-            // TODO
+        // Search bar
+        binding.searchInput.doAfterTextChanged {
+            pagerViewModel.onQueryTextChange(it?.toString())
         }
+        binding.searchInput.apply {
+            doAfterTextChanged {
+                pagerViewModel.onQueryTextChange(it?.toString())
+            }
+            setOnEditorActionListener { view, actionId, event ->
+                dismissKeyboard(view)
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    pagerViewModel.onQueryTextSubmit(this@apply.text.toString())
+                    historyViewModel.onQueryTextSubmit(this@apply.text.toString())
+                    true
+                } else {
+                    false
+                }
+            }
+        }
+        pagerViewModel.onQueryTextChange(args.query)
+        if (!args.query.isNullOrEmpty()) {
+            pagerViewModel.onQueryTextSubmit(args.query!!)
+            historyViewModel.onQueryTextSubmit(args.query!!)
+        }
+
+        // ViewPager
         binding.pager.adapter = SearchPagerAdapter(this)
         val tabLayout: TabLayout = view.findViewById(R.id.tab_layout)
         TabLayoutMediator(tabLayout, binding.pager) { tab, position ->
             tab.text = getString(SearchType.fromPosition(position).title)
         }.attach()
-
-        binding.searchView.apply {
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    dismissKeyboard(this@apply)
-                    pagerViewModel.onQueryTextSubmit(query)
-                    historyViewModel.onQueryTextSubmit(query)
-                    return true
-                }
-
-                override fun onQueryTextChange(query: String): Boolean {
-                    pagerViewModel.onQueryTextChange(query)
-                    return true
-                }
-            })
-
-            setOnQueryTextFocusChangeListener { view, hasFocus ->
-                if (hasFocus) {
-                    showKeyboard(view.findFocus())
-                }
-            }
-            if (!args.query.isNullOrEmpty()) {
-                setQuery(args.query, true)
-            }
-            requestFocus()
-        }
 
         binding.viewModel = pagerViewModel
         historyViewModel.history.observe(
@@ -102,7 +107,7 @@ class SearchPagerFragment : Fragment() {
                     )
                     chip.setChipBackgroundColorResource(hc.colorBg)
                     chip.setOnClickListener {
-                        binding.searchView.setQuery(chip.text, true)
+//                        binding.searchInput.text = chip.text
                     }
                     binding.historyGroup.addView(chip)
                 }
@@ -112,7 +117,7 @@ class SearchPagerFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        dismissKeyboard(binding.searchView)
+        dismissKeyboard(binding.searchInput)
     }
 
     private fun showKeyboard(view: View) {

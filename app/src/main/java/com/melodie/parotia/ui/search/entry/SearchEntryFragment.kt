@@ -37,8 +37,8 @@ class SearchEntryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = entryViewModel
-        binding.buttonClick = View.OnClickListener {
-            entryViewModel.startSearch(it)
+        binding.searchBarClick = View.OnClickListener {
+            entryViewModel.startSearch(binding)
         }
         historyViewModel.history.observe(
             viewLifecycleOwner,

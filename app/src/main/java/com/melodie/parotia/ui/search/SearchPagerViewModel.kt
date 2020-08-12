@@ -18,11 +18,15 @@ class SearchPagerViewModel @ViewModelInject constructor() : ViewModel() {
         emitSource(map(_queryText) { it.isNullOrEmpty() })
     }
 
+    val inputEmpty: LiveData<Boolean> = liveData {
+        emitSource(map(_queryText) { it.isNullOrEmpty() })
+    }
+
     fun onQueryTextSubmit(query: String) {
         _queryTextSubmitted.value = query
     }
 
-    fun onQueryTextChange(query: String) {
+    fun onQueryTextChange(query: String?) {
         _queryText.value = query
     }
 }

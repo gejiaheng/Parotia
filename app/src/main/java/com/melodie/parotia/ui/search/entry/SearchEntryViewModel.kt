@@ -1,12 +1,14 @@
 package com.melodie.parotia.ui.search.entry
 
-import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.melodie.parotia.MainNavDirections
+import com.melodie.parotia.R
+import com.melodie.parotia.databinding.FragmentSearchEntryBinding
 import com.melodie.parotia.domain.search.GetSearchBannersUseCase
 import com.melodie.parotia.domain.search.SaveSearchBannersUseCase
 import com.melodie.parotia.domain.stats.GetStatsUseCase
@@ -49,9 +51,18 @@ class SearchEntryViewModel @ViewModelInject constructor(
 //        }
     }
 
-    fun startSearch(view: View) {
+    fun startSearch(
+        binding: FragmentSearchEntryBinding
+    ) {
         val action = MainNavDirections.actionGlobalSearch(null)
-        view.findNavController().navigate(action)
+        val context = binding.root.context
+        val extras = FragmentNavigatorExtras(
+            binding.transitionLayout to context.getString(R.string.shared_search_layout),
+            binding.searchBar to context.getString(R.string.shared_search_bar),
+            binding.searchHintText to context.getString(R.string.shared_search_hint_text),
+            binding.historyGroup to context.getString(R.string.shared_search_history_group)
+        )
+        binding.root.findNavController().navigate(action, extras)
     }
 
     override fun onCleared() {

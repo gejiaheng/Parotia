@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="buttonClick"
+            name="searchBarClick"
             type="android.view.View.OnClickListener" />
 
         <variable
@@ -42,59 +42,68 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/search_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_top_rounded"
+            android:gravity="center_vertical"
+            android:minHeight="72dp"
+            android:paddingStart="@dimen/content_margin"
+            android:text="Search"
+            android:textAppearance="?textAppearanceHeadline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline1" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/transition_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/bg_top_rounded"
+            android:background="?android:colorBackground"
+            android:transitionName="@string/shared_search_layout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline1">
-
-            <TextView
-                android:id="@+id/search_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/content_margin"
-                android:layout_marginTop="40dp"
-                android:text="Search"
-                android:textAppearance="?textAppearanceHeadline3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/search_title">
 
             <View
-                android:id="@+id/search_button"
-                android:layout_width="0dp"
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginStart="@dimen/content_margin"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="@dimen/content_margin"
                 android:background="@drawable/ripple_rounded"
-                android:onClick="@{buttonClick}"
+                android:onClick="@{searchBarClick}"
+                android:transitionName="@string/shared_search_bar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_title" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/search_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:transitionName="@string/shared_search_icon"
                 android:layout_marginStart="16dp"
                 android:src="@drawable/ic_round_search_24"
-                app:layout_constraintBottom_toBottomOf="@id/search_button"
-                app:layout_constraintStart_toStartOf="@id/search_button"
-                app:layout_constraintTop_toTopOf="@id/search_button" />
+                app:layout_constraintBottom_toBottomOf="@id/search_bar"
+                app:layout_constraintStart_toStartOf="@id/search_bar"
+                app:layout_constraintTop_toTopOf="@id/search_bar" />
 
             <TextView
+                android:id="@+id/search_hint_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/search_input_hint"
                 android:textAppearance="?textAppearanceBody1"
                 android:textColor="@color/color_on_bg_50"
-                app:layout_constraintBottom_toBottomOf="@id/search_button"
+                android:transitionName="@string/shared_search_hint_text"
+                app:layout_constraintBottom_toBottomOf="@id/search_bar"
                 app:layout_constraintStart_toEndOf="@id/search_icon"
-                app:layout_constraintTop_toTopOf="@id/search_button" />
+                app:layout_constraintTop_toTopOf="@id/search_bar" />
 
             <TextView
                 android:id="@+id/history_title"
@@ -104,8 +113,9 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/search_history"
                 android:textAppearance="?textAppearanceHeadline6"
+                android:transitionName="@string/shared_search_history_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_button"
+                app:layout_constraintTop_toBottomOf="@id/search_bar"
                 app:layout_goneMarginStart="@dimen/content_margin" />
 
             <com.google.android.material.chip.ChipGroup
@@ -115,10 +125,12 @@
                 android:layout_marginStart="@dimen/content_margin"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/content_margin"
+                android:transitionName="@string/shared_search_history_group"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/history_title" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
