@@ -28,10 +28,11 @@ class HorizontalPhotoPagingAdapter @Inject constructor() :
                 set.clone(binding.photoFrame)
                 set.setDimensionRatio(binding.image.id, ratio)
                 set.applyTo(binding.photoFrame)
-            }
-            binding.photoClick = View.OnClickListener {
-                val action = MainNavDirections.actionGlobalPhoto(photo?.urls!!.full)
-                binding.root.findNavController().navigate(action)
+
+                binding.photoClick = View.OnClickListener {
+                    val action = MainNavDirections.actionGlobalPhoto(photo)
+                    binding.root.findNavController().navigate(action)
+                }
             }
         }
     }

@@ -79,8 +79,8 @@
         android:label="@string/title_photo"
         tools:layout="@layout/fragment_photo">
         <argument
-            android:name="url"
-            app:argType="string" />
+            android:name="photo"
+            app:argType="com.melodie.parotia.model.Photo" />
     </fragment>
 
     <fragment

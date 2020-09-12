@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.melodie.parotia.databinding.FragmentPhotoBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +30,6 @@ class PhotoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Glide.with(this).load(args.url).into(binding.photoView)
         binding.viewModel = viewModel
     }
 }
