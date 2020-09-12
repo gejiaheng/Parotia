@@ -7,6 +7,8 @@ import com.facebook.flipper.plugins.inspector.DescriptorMapping
 import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.melodie.parotia.api.AuthInterceptor
 import com.melodie.parotia.api.BASE_URL
 import com.melodie.parotia.api.service.AuthService
@@ -44,7 +46,8 @@ object NetworkModule {
     @Singleton
     fun providesRetrofit(
         authInterceptor: AuthInterceptor,
-        flipperOkhttpInterceptor: FlipperOkhttpInterceptor
+        flipperOkhttpInterceptor: FlipperOkhttpInterceptor,
+        gson: Gson
     ): Retrofit {
         val client = OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
@@ -53,8 +56,17 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesGson(): Gson {
+        return GsonBuilder()
+            .setPrettyPrinting()
+//            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            .create()
     }
 
     @Provides

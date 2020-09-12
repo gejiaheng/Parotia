@@ -32,4 +32,16 @@
     <string name="shared_search_hint_text">searchHintText</string>
     <string name="shared_search_history_title">searchHistoryTitle</string>
     <string name="shared_search_history_group">searchHistoryGroup</string>
+
+    <string name="views">Views</string>
+    <string name="downloads">Downloads</string>
+    <string name="likes">Likes</string>
+
+    <string name="camera_make_title">Camera Make</string>
+    <string name="camera_model_title">Camera Model</string>
+    <string name="focal_length_title">Focal Length</string>
+    <string name="aperture_title">Aperture</string>
+    <string name="shutter_speed_title">Shutter Speed</string>
+    <string name="iso_title">ISO</string>
+    <string name="dimensions_title">Dimensions</string>
 </resources>
