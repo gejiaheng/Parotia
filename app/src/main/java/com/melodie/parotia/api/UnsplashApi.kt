@@ -1,6 +1,5 @@
 package com.melodie.parotia.api
 
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.melodie.parotia.api.service.AuthService
 import com.melodie.parotia.api.service.PhotoService
 import com.melodie.parotia.api.service.UserService
@@ -16,7 +15,6 @@ object UnsplashApi {
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(AuthInterceptor())
-        .addNetworkInterceptor(FlipperOkhttpInterceptor(NetworkFlipperPluginIns.ins))
         .build()
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

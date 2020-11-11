@@ -1,12 +1,5 @@
 package com.melodie.parotia.di
 
-import android.app.Application
-import com.facebook.flipper.android.AndroidFlipperClient
-import com.facebook.flipper.core.FlipperClient
-import com.facebook.flipper.plugins.inspector.DescriptorMapping
-import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.melodie.parotia.api.AuthInterceptor
@@ -22,6 +15,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -32,26 +26,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesFlipperClient(
-        context: Application,
-        networkFlipperPlugin: NetworkFlipperPlugin
-    ): FlipperClient {
-        val client = AndroidFlipperClient.getInstance(context)
-        client.addPlugin(networkFlipperPlugin)
-        client.addPlugin(InspectorFlipperPlugin(context, DescriptorMapping.withDefaults()))
-        return client
-    }
-
-    @Provides
-    @Singleton
     fun providesRetrofit(
         authInterceptor: AuthInterceptor,
-        flipperOkhttpInterceptor: FlipperOkhttpInterceptor,
         gson: Gson
     ): Retrofit {
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY).redactHeader("Authorization")
         val client = OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
-            .addNetworkInterceptor(flipperOkhttpInterceptor)
+            .addInterceptor(logging)
             .build()
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -68,15 +51,6 @@ object NetworkModule {
 //            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
             .create()
     }
-
-    @Provides
-    fun providesFlipperOkhttpInterceptor(
-        networkFlipperPlugin: NetworkFlipperPlugin
-    ): FlipperOkhttpInterceptor = FlipperOkhttpInterceptor(networkFlipperPlugin)
-
-    @Provides
-    @Singleton
-    fun providesNetworkFlipperPlugin(): NetworkFlipperPlugin = NetworkFlipperPlugin()
 
     @Provides
     @Singleton
