@@ -6,7 +6,6 @@ import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import com.melodie.parotia.api.PAGE_SIZE
 import com.melodie.parotia.api.STARTING_PAGE_INDEX
-import com.melodie.parotia.api.UnsplashApi
 import com.melodie.parotia.api.service.UserService
 import com.melodie.parotia.model.Collection
 import com.melodie.parotia.model.Photo
@@ -17,9 +16,11 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class UserRepository @Inject constructor() {
+class UserRepository @Inject constructor(
+    private val userService: UserService
+) {
     suspend fun getMe(): User {
-        return UnsplashApi.userService.getMe()
+        return userService.getMe()
     }
 
     fun listUserPhotos(username: String): Flow<PagingData<Photo>> {
@@ -28,7 +29,7 @@ class UserRepository @Inject constructor() {
             pagingSourceFactory = {
                 UserPhotosPagingSource(
                     username,
-                    UnsplashApi.userService
+                    userService
                 )
             }
         ).flow
@@ -40,7 +41,7 @@ class UserRepository @Inject constructor() {
             pagingSourceFactory = {
                 UserLikedPhotosPagingSource(
                     username,
-                    UnsplashApi.userService
+                    userService
                 )
             }
         ).flow
@@ -52,14 +53,14 @@ class UserRepository @Inject constructor() {
             pagingSourceFactory = {
                 UserCollectionPagingSource(
                     username,
-                    UnsplashApi.userService
+                    userService
                 )
             }
         ).flow
     }
 
     suspend fun getUserStatistics(username: String): UserStats {
-        return UnsplashApi.userService.getUserStatistics(username)
+        return userService.getUserStatistics(username)
     }
 }
 
