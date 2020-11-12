@@ -36,7 +36,7 @@ class SearchCollectionPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Collection> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val collections = service.searchCollections(query, page, params.pageSize)
+            val collections = service.searchCollections(query, page, params.loadSize)
             LoadResult.Page(
                 data = collections.results,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,

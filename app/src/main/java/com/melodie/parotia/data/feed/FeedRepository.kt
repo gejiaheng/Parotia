@@ -36,7 +36,7 @@ abstract class FeedPagingSource(val service: PhotoService) : PagingSource<Int, P
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val photos = service.listPhotos(page, params.pageSize, orderBy())
+            val photos = service.listPhotos(page, params.loadSize, orderBy())
             LoadResult.Page(
                 data = photos,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,

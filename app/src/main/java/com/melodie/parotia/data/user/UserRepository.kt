@@ -71,7 +71,7 @@ class UserPhotosPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val photos = service.listUserPhotos(username, page, params.pageSize)
+            val photos = service.listUserPhotos(username, page, params.loadSize)
             LoadResult.Page(
                 data = photos,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
@@ -92,7 +92,7 @@ class UserLikedPhotosPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val photos = service.listUserLikedPhotos(username, page, params.pageSize)
+            val photos = service.listUserLikedPhotos(username, page, params.loadSize)
             LoadResult.Page(
                 data = photos,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
@@ -113,7 +113,7 @@ class UserCollectionPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Collection> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val photos = service.listUserCollections(username, page, params.pageSize)
+            val photos = service.listUserCollections(username, page, params.loadSize)
             LoadResult.Page(
                 data = photos,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,

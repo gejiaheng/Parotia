@@ -41,7 +41,7 @@ class SearchPhotoPagingSource(
             val photos = service.searchPhotos(
                 query,
                 page,
-                params.pageSize
+                params.loadSize
 //                orderBy ?: "",
 //                color = color ?: "",
 //                orientation = orientation ?: ""

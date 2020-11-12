@@ -36,7 +36,7 @@ class SearchUserPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val users = service.searchUsers(query, page, params.pageSize)
+            val users = service.searchUsers(query, page, params.loadSize)
             LoadResult.Page(
                 data = users.results,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
