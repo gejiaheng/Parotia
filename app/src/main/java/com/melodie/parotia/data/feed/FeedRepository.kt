@@ -26,7 +26,10 @@ class FeedRepository @Inject constructor(
 
     fun getLatestPhotos(): Flow<PagingData<Photo>> {
         return Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false
+            ),
             pagingSourceFactory = { latestPagingSource }
         ).flow
     }
