@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentFeedListBinding
 import com.melodie.parotia.ui.list.PhotoPagingAdapter
 import com.melodie.parotia.widget.SpacingDecoration
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 abstract class FeedListFragment : Fragment() {
@@ -20,7 +24,7 @@ abstract class FeedListFragment : Fragment() {
 
     @Inject
     lateinit var adapter: PhotoPagingAdapter
-    private lateinit var binding: FragmentFeedListBinding
+    lateinit var binding: FragmentFeedListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +38,11 @@ abstract class FeedListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(binding.recyclerView)
+        viewLifecycleOwner.lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest {
+                binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
+            }
+        }
         setupData()
     }
 
