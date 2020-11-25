@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import com.melodie.parotia.ui.feed.FeedListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FeedLatestFragment : FeedListFragment() {
@@ -12,7 +13,7 @@ class FeedLatestFragment : FeedListFragment() {
     override val viewModel: FeedLatestViewModel by viewModels()
 
     override fun setupData() {
-        lifecycleScope.launchWhenResumed {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.photos.collectLatest {
                 adapter.submitData(it)
             }
