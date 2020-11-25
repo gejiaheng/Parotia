@@ -44,4 +44,6 @@
     <string name="shutter_speed_title">Shutter Speed</string>
     <string name="iso_title">ISO</string>
     <string name="dimensions_title">Dimensions</string>
+
+    <string name="retry_button">Retry</string>
 </resources>

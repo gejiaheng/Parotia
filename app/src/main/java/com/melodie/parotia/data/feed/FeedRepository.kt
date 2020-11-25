@@ -14,13 +14,12 @@ import java.io.IOException
 import javax.inject.Inject
 
 class FeedRepository @Inject constructor(
-    private val popularPagingSource: PopularPagingSource,
-    private val latestPagingSource: LatestPagingSource
+    val service: PhotoService
 ) {
     fun getPopularPhotos(): Flow<PagingData<Photo>> {
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),
-            pagingSourceFactory = { popularPagingSource }
+            pagingSourceFactory = { PopularPagingSource(service) }
         ).flow
     }
 
@@ -30,7 +29,7 @@ class FeedRepository @Inject constructor(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { latestPagingSource }
+            pagingSourceFactory = { LatestPagingSource(service) }
         ).flow
     }
 }
@@ -55,13 +54,13 @@ abstract class FeedPagingSource(val service: PhotoService) : PagingSource<Int, P
     abstract fun orderBy(): String
 }
 
-class PopularPagingSource @Inject constructor(
+class PopularPagingSource(
     service: PhotoService
 ) : FeedPagingSource(service) {
     override fun orderBy() = "popular"
 }
 
-class LatestPagingSource @Inject constructor(
+class LatestPagingSource(
     service: PhotoService
 ) : FeedPagingSource(service) {
     override fun orderBy() = "latest"
