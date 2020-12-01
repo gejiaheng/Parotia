@@ -31,6 +31,7 @@ object NetworkModule {
         gson: Gson
     ): Retrofit {
         val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         logging.setLevel(HttpLoggingInterceptor.Level.BODY).redactHeader("Authorization")
         val client = OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
