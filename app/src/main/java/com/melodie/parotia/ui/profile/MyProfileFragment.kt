@@ -40,19 +40,21 @@ class MyProfileFragment : BaseProfileFragment() {
         super.onViewCreated(view, savedInstanceState)
         accountViewModel.loggedIn.observe(
             viewLifecycleOwner,
-            Observer {
-                if (it) {
-                } else {
+            {
+                // If not logged in, jump to LoginPromptFragment
+                if (!it) {
                     findNavController().navigate(R.id.navigation_login_prompt)
                 }
             }
         )
         accountViewModel.me.observe(
             viewLifecycleOwner,
-            Observer { user ->
+            { user ->
                 if (user != null) {
                     bindUser(user)
                 } else {
+                    TODO("logout, user data cleared")
+                    TODO("maybe need to handle user request failure here")
                 }
             }
         )
