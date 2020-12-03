@@ -10,8 +10,8 @@ import javax.inject.Singleton
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+// TODO("Migrate to DataStore when it is stable")
 interface PreferenceStorage {
-    var token: String?
     var user: String?
     var searchHistory: String?
     var searchBanners: String?
@@ -27,11 +27,6 @@ class SharedPreferenceStorage @Inject constructor(
             PREFS_NAME, MODE_PRIVATE
         )
     }
-
-    // TODO("maybe change to LiveData<String>")
-    override var token by StringPreference(
-        prefs, PREF_TOKEN, null
-    )
 
     override var user by StringPreference(
         prefs, PREF_USER, null
