@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/content_margin"
-            android:src="@drawable/ic_round_settings_24"
+            android:src="@drawable/ic_settings"
             app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:layout_constraintEnd_toEndOf="@id/toolbar"
             app:layout_constraintTop_toTopOf="@id/toolbar" />
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/content_margin"
-            android:src="@drawable/ic_round_insert_chart_outlined_24"
+            android:src="@drawable/ic_chart"
             app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:layout_constraintEnd_toStartOf="@id/setting"
             app:layout_constraintTop_toTopOf="@id/toolbar" />
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
             android:background="?attr/selectableItemBackground"
-            android:drawableStart="@drawable/ic_outline_location_on_24"
+            android:drawableStart="@drawable/ic_location"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:paddingVertical="8dp"

@@ -33,7 +33,7 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_inset"
+            android:src="@drawable/ic_arrow_back_inset"
             android:transitionName="@string/shared_search_icon"
             app:layout_constraintBottom_toBottomOf="@id/search_bar"
             app:layout_constraintStart_toStartOf="@id/search_bar"
