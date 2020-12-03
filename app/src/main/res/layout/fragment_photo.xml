@@ -64,16 +64,6 @@
                 app:layout_constraintTop_toBottomOf="@id/hat"
                 app:shapeAppearanceOverlay="@style/CircleImage" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/content_margin"
-                android:text="FOLLOW"
-                app:layout_constraintBottom_toBottomOf="@id/avatar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/avatar" />
-
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
