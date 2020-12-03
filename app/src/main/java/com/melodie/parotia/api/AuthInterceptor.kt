@@ -27,7 +27,7 @@ class AuthInterceptor @Inject constructor(
         }
     }
 
-    lateinit var tokenValue: String
+    var tokenValue: String? = null
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder().addHeader(
