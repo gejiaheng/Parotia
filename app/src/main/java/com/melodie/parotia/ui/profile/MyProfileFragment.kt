@@ -53,8 +53,8 @@ class MyProfileFragment : BaseProfileFragment() {
                 if (user != null) {
                     bindUser(user)
                 } else {
-                    TODO("logout, user data cleared")
-                    TODO("maybe need to handle user request failure here")
+                    // TODO("logout, user data cleared")
+                    // TODO("maybe need to handle user request failure here")
                 }
             }
         )
