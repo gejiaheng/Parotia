@@ -1,11 +1,14 @@
 package com.melodie.parotia.ui.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.melodie.parotia.R
+import com.melodie.parotia.result.Result
 import com.melodie.parotia.ui.account.AccountViewModel
 import com.melodie.parotia.ui.account.LoginPromptFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,13 +52,15 @@ class MyProfileFragment : BaseProfileFragment() {
         )
         accountViewModel.me.observe(
             viewLifecycleOwner,
-            { user ->
-                if (user != null) {
-                    bindUser(user)
-                } else {
-                    // TODO("logout, user data cleared")
-                    // TODO("maybe need to handle user request failure here")
+            { result ->
+                when (result) {
+                    Result.Loading -> Log.d("MyProfileFragment", "Loading user data")
+                    is Result.Error ->
+                        Toast.makeText(context, result.toString(), Toast.LENGTH_LONG).show()
+                    is Result.Success -> bindUser(result.data)
                 }
+                // TODO("logout, user data cleared")
+                // TODO("maybe need to handle user request failure here")
             }
         )
     }

@@ -22,6 +22,7 @@ import com.melodie.parotia.domain.account.OAuthUseCase
 import com.melodie.parotia.domain.user.GetMeUseCase
 import com.melodie.parotia.domain.user.GetUserStatisticsUseCase
 import com.melodie.parotia.model.User
+import com.melodie.parotia.result.Result
 import com.melodie.parotia.result.data
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -44,15 +45,17 @@ class AccountViewModel @ViewModelInject constructor(
         !it.isNullOrEmpty()
     }
 
-    val me: LiveData<User?> = switchMap(loggedIn) {
+    val me: LiveData<Result<User>> = switchMap(loggedIn) {
         liveData {
             if (it) {
-                getMeUseCase(Unit).data?.apply {
+                getMeUseCase(Unit).data!!.asLiveData().apply {
                     emitSource(this)
                 }
-            } else {
-                emit(null)
             }
+            // TODO("logout")
+//            else {
+//                emit(null)
+//            }
         }
     }
 
