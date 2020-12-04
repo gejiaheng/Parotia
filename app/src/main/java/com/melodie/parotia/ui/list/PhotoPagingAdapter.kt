@@ -23,16 +23,17 @@ class PhotoPagingAdapter @Inject constructor() : PagingDataAdapter<Photo, PhotoP
         private val binding: ItemPhotoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: Photo?, set: ConstraintSet) {
-            binding.photoItem = photo
-            // https://github.com/burhanrashid52/AspectRatioExample
-            if (photo != null) {
-                val ratio = String.format("%d:%d", photo.width, photo.height)
+            photo?.apply {
+                binding.photoItem = photo
+
+                // https://github.com/burhanrashid52/AspectRatioExample
+                val ratio = String.format("%d:%d", this.width, this.height)
                 set.clone(binding.photoFrame)
                 set.setDimensionRatio(binding.image.id, ratio)
                 set.applyTo(binding.photoFrame)
 
                 binding.photoClick = View.OnClickListener {
-                    val action = MainNavDirections.actionGlobalPhoto(photo)
+                    val action = MainNavDirections.actionGlobalPhoto(this)
                     binding.root.findNavController().navigate(action)
                 }
             }
