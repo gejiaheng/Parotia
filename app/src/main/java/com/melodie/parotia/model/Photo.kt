@@ -22,7 +22,8 @@ data class Photo(
     val tags: List<Tag>,
     val urls: Urls,
     val links: PLinks,
-    val user: User
+    val user: User,
+    val blur_hash: String
 ) : Parcelable {
     @IgnoredOnParcel
     val dimensions = "$width x $height"
