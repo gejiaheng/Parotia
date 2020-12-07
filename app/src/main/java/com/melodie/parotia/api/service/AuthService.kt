@@ -6,7 +6,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 const val SCOPE = "public"
-const val REDIRECT_URI = "x-arch-oauth-unsplash://callback"
+const val REDIRECT_URI = "x-unsplash-parotia-open://callback"
 const val GRANT_TYPE = "authorization_code"
 
 interface AuthService {
