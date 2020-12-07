@@ -27,6 +27,14 @@ data class Photo(
 ) : Parcelable {
     @IgnoredOnParcel
     val dimensions = "$width x $height"
+
+    fun suitableUrl(width: Int): String {
+        return when (width) {
+            in 0..200 -> urls.thumb
+            in 200..400 -> urls.small
+            else -> urls.regular
+        }
+    }
 }
 
 @Parcelize
@@ -59,10 +67,27 @@ data class Tag(
 
 @Parcelize
 data class Urls(
+    /**
+     * returns a base image URL with just the photo path and the ixid parameter for your API
+     * application. Use this to easily add additional image parameters to construct your own image URL.
+     */
     val raw: String,
+    /**
+     * returns the photo in jpg format with its maximum dimensions. For performance purposes,
+     * we don’t recommend using this as the photos will load slowly for your users.
+     */
     val full: String,
+    /**
+     * returns the photo in jpg format with a width of 1080 pixels.
+     */
     val regular: String,
+    /**
+     * returns the photo in jpg format with a width of 400 pixels.
+     */
     val small: String,
+    /**
+     * returns the photo in jpg format with a width of 200 pixels.
+     */
     val thumb: String
 ) : Parcelable
 

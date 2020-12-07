@@ -30,7 +30,7 @@ fun loadPhoto(view: ImageView, photo: Photo?) {
         photo.height * PLACEHOLDER_WIDTH / photo.width
     )
     Glide.with(view.context)
-        .load(photo.urls.regular)
+        .load(photo.suitableUrl(view.width))
         .transition(DrawableTransitionOptions.withCrossFade())
         .placeholder(BitmapDrawable(view.resources, bitmap))
         .into(view)
