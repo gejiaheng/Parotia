@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{collectionItem.cover_photo.urls.small}" />
+                app:photo="@{collectionItem.cover_photo}" />
         </com.google.android.material.card.MaterialCardView>
 
 
