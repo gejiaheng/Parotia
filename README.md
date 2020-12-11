@@ -1,6 +1,9 @@
 # Parotia
 
 ## Intro
+This is an Android app made for [Unsplash](https://unsplash.com). It incorporates some best practices and modern architecture to Android development. 
+
+Please don't try to publish this app on your behalf, as replicating core user experience of Unsplash including making an unofficial Unsplash for Android app violates the [guideline](https://help.unsplash.com/en/articles/2511257-guideline-replicating-unsplash).
 
 ## Android Development
 This app is intended to be a playground for modern Android development. It
@@ -22,7 +25,14 @@ It has the following notable dependencies
 - LiveData
 - Coroutines
 
-## Build and Develop
+## Build
+You have to have **access key** and **secret key** from Unsplash to build the project. Please apply for your keys on [Unsplash Developers](https://unsplash.com/developers).
+
+To avoid committing keys to the repo, put your keys in your local global gradle.properties file which should be located at *~/.gradle/gradle.properties* on Mac. You can put the keys in the project's gradle.properties file as long as you don't commit them.
+```
+unsplash_access_key=xxxxx
+unsplash_secret_key=xxxxx
+```
 
 ## Test
 
