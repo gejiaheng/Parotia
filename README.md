@@ -1,4 +1,4 @@
-# Parotia
+# Parotia (WIP 🔧️)
 
 ## Intro
 This is an Android app made for [Unsplash](https://unsplash.com). It incorporates some best practices and modern architecture to Android development. 
