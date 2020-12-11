@@ -61,7 +61,7 @@ class AccountViewModel @ViewModelInject constructor(
 
     fun authorize(context: Context) {
         val url =
-            "https://unsplash.com/oauth/authorize?client_id=${BuildConfig.CLIENT_ID}&redirect_uri=$REDIRECT_URI&response_type=code&scope=$SCOPE"
+            "https://unsplash.com/oauth/authorize?client_id=${BuildConfig.ACCESS_KEY}&redirect_uri=$REDIRECT_URI&response_type=code&scope=$SCOPE"
         val builder = CustomTabsIntent.Builder()
         val intent = builder.build()
         intent.launchUrl(context, Uri.parse(url))

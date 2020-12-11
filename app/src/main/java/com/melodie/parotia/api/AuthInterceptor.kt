@@ -38,7 +38,7 @@ class AuthInterceptor @Inject constructor(
 
     private fun authorization(): String {
         return if (tokenValue.isNullOrEmpty()) {
-            "Client-ID ${BuildConfig.CLIENT_ID}"
+            "Client-ID ${BuildConfig.ACCESS_KEY}"
         } else {
             "Bearer $tokenValue"
         }

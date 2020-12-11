@@ -12,8 +12,8 @@ const val GRANT_TYPE = "authorization_code"
 interface AuthService {
     @POST("https://unsplash.com/oauth/token")
     suspend fun getToken(
-        @Query("client_id") clientId: String = BuildConfig.CLIENT_ID,
-        @Query("client_secret") clientSecret: String = BuildConfig.CLIENT_SECRET,
+        @Query("client_id") clientId: String = BuildConfig.ACCESS_KEY,
+        @Query("client_secret") clientSecret: String = BuildConfig.SECRET_KEY,
         @Query("redirect_uri") redirectUri: String = REDIRECT_URI,
         @Query("code") code: String,
         @Query("grant_type") grantType: String = GRANT_TYPE
