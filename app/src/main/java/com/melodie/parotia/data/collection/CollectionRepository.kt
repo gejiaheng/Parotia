@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
+import com.melodie.parotia.api.INITIAL_LOAD_SIZE
 import com.melodie.parotia.api.PAGE_SIZE
 import com.melodie.parotia.api.STARTING_PAGE_INDEX
 import com.melodie.parotia.api.service.CollectionService
@@ -19,7 +20,11 @@ class CollectionRepository @Inject constructor(
 ) {
     fun getFeaturedCollections(): Flow<PagingData<Collection>> {
         return Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = INITIAL_LOAD_SIZE
+            ),
             pagingSourceFactory = {
                 CollectionListPagingSource(
                     service
@@ -30,7 +35,11 @@ class CollectionRepository @Inject constructor(
 
     fun getCollectionPhotos(id: Long): Flow<PagingData<Photo>> {
         return Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = INITIAL_LOAD_SIZE
+            ),
             pagingSourceFactory = {
                 CollectionPhotosPagingSource(id, service)
             }

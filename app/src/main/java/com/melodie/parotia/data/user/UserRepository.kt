@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import com.google.gson.Gson
+import com.melodie.parotia.api.INITIAL_LOAD_SIZE
 import com.melodie.parotia.api.PAGE_SIZE
 import com.melodie.parotia.api.STARTING_PAGE_INDEX
 import com.melodie.parotia.api.service.UserService
@@ -48,7 +49,11 @@ class UserRepository @Inject constructor(
 
     fun listUserPhotos(username: String): Flow<PagingData<Photo>> {
         return Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = INITIAL_LOAD_SIZE
+            ),
             pagingSourceFactory = {
                 UserPhotosPagingSource(
                     username,
@@ -60,7 +65,11 @@ class UserRepository @Inject constructor(
 
     fun listUserLikedPhotos(username: String): Flow<PagingData<Photo>> {
         return Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = INITIAL_LOAD_SIZE
+            ),
             pagingSourceFactory = {
                 UserLikedPhotosPagingSource(
                     username,
@@ -72,7 +81,11 @@ class UserRepository @Inject constructor(
 
     fun listUserCollections(username: String): Flow<PagingData<Collection>> {
         return Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = INITIAL_LOAD_SIZE
+            ),
             pagingSourceFactory = {
                 UserCollectionPagingSource(
                     username,

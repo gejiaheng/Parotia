@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
+import com.melodie.parotia.api.INITIAL_LOAD_SIZE
 import com.melodie.parotia.api.PAGE_SIZE
 import com.melodie.parotia.api.STARTING_PAGE_INDEX
 import com.melodie.parotia.api.service.SearchService
@@ -19,7 +20,11 @@ class SearchPhotoRepository @Inject constructor(
 ) {
     fun getSearchPhotosStream(params: SearchPhotoParams): Flow<PagingData<Photo>> {
         return Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = INITIAL_LOAD_SIZE
+            ),
             pagingSourceFactory = {
                 SearchPhotoPagingSource(
                     service,
