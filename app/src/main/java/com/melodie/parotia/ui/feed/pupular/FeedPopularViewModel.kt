@@ -12,5 +12,7 @@ import kotlinx.coroutines.flow.Flow
 class FeedPopularViewModel @ViewModelInject constructor(
     getFeedPopularUseCase: GetFeedPopularUseCase
 ) : ViewModel() {
-    val photos: Flow<PagingData<Photo>> = getFeedPopularUseCase(Unit).cachedIn(viewModelScope)
+    val photos: Flow<PagingData<Photo>> by lazy {
+        getFeedPopularUseCase(Unit).cachedIn(viewModelScope)
+    }
 }

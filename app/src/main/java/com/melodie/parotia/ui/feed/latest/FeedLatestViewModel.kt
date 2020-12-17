@@ -12,5 +12,7 @@ import kotlinx.coroutines.flow.Flow
 class FeedLatestViewModel @ViewModelInject constructor(
     getFeedLatestUseCase: GetFeedLatestUseCase
 ) : ViewModel() {
-    val photos: Flow<PagingData<Photo>> = getFeedLatestUseCase(Unit).cachedIn(viewModelScope)
+    val photos: Flow<PagingData<Photo>> by lazy {
+        getFeedLatestUseCase(Unit).cachedIn(viewModelScope)
+    }
 }

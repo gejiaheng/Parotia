@@ -12,7 +12,7 @@ class FeedLatestFragment : FeedListFragment() {
 
     override val viewModel: FeedLatestViewModel by viewModels()
 
-    override fun setupData() {
+    override fun observeUIData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.photos.collectLatest {
                 adapter.submitData(it)

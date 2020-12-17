@@ -32,6 +32,7 @@ abstract class FeedListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFeedListBinding.inflate(inflater, container, false)
+        observeUIData()
         return binding.root
     }
 
@@ -42,7 +43,6 @@ abstract class FeedListFragment : Fragment() {
             adapter.refresh()
         }
         binding.setRetryClick { adapter.retry() }
-        setupData()
     }
 
     private fun setupRecyclerView(view: RecyclerView) {
@@ -83,5 +83,9 @@ abstract class FeedListFragment : Fragment() {
         }
     }
 
-    protected abstract fun setupData()
+    /**
+     * This is where we should start to observe data for the UI. The earliest place to put it is
+     * in onCreateView() since we are going to rely on ViewLifecycleOwner rather than LifecycleOwner.
+     */
+    protected abstract fun observeUIData()
 }
