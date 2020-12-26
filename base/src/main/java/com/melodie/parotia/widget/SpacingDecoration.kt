@@ -3,7 +3,7 @@ package com.melodie.parotia.widget
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.melodie.parotia.R
+import com.melodie.parotia.base.R
 
 class SpacingDecoration : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(
