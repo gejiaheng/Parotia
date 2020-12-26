@@ -4,12 +4,12 @@ data class UserStats(
     val username: String,
     val downloads: Data,
     val views: Data,
-    val likes: Data
+    val likes: Data,
 )
 
 data class Data(
     val total: Int,
-    val historical: Historical
+    val historical: Historical,
 )
 
 data class Historical(
@@ -17,10 +17,10 @@ data class Historical(
     val average: Int,
     val resolution: String,
     val quantity: Int,
-    val values: List<Value>
+    val values: List<Value>,
 )
 
 data class Value(
     val date: String,
-    val value: Int
+    val value: Int,
 )

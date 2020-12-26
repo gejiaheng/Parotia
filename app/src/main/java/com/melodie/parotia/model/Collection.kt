@@ -15,7 +15,7 @@ data class Collection(
     val share_key: String,
     val cover_photo: Photo,
     val user: User,
-    val links: CLinks
+    val links: CLinks,
 ) {
     fun shrink(): ArgCollection {
         return ArgCollection(

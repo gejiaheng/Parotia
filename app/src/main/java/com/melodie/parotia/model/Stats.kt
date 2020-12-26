@@ -8,7 +8,7 @@ data class Stats(
     val downloads: Long,
     val views: Long,
     val likes: Long,
-    val photographers: Long
+    val photographers: Long,
 ) : Serializable {
 //    val photosCompact: String
 //        get() = format(photos)

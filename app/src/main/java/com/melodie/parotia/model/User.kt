@@ -25,7 +25,7 @@ data class User(
     val downloads: Int,
     val profile_image: ProfileImage,
     val badge: Badge,
-    val links: ULinks
+    val links: ULinks,
 ) : Parcelable
 
 @Parcelize

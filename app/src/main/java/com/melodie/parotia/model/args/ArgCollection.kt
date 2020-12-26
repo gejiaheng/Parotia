@@ -9,5 +9,5 @@ data class ArgCollection(
     val title: String,
     val description: String?,
     val userAvatar: String,
-    val userName: String
+    val userName: String,
 ) : Parcelable
