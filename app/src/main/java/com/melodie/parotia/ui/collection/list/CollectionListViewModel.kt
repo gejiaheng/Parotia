@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 class CollectionListViewModel @ViewModelInject constructor(
     getFeaturedCollectionUseCase: GetFeaturedCollectionUseCase
 ) : ViewModel() {
-    val collections: Flow<PagingData<Collection>> =
+    val collections: Flow<PagingData<Collection>> by lazy {
         getFeaturedCollectionUseCase(Unit).cachedIn(viewModelScope)
+    }
 }

@@ -37,6 +37,11 @@ class CollectionListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCollectionListBinding.inflate(inflater, container, false)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.collections.collectLatest {
+                adapter.submitData(it)
+            }
+        }
         return binding.root
     }
 
@@ -47,11 +52,6 @@ class CollectionListFragment : Fragment() {
             adapter.refresh()
         }
         binding.setRetryClick { adapter.retry() }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.collections.collectLatest {
-                adapter.submitData(it)
-            }
-        }
     }
 
     private fun setupRecyclerView(view: RecyclerView) {
