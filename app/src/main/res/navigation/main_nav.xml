@@ -37,7 +37,7 @@
         android:id="@+id/navigation_search_entry"
         android:name="com.melodie.parotia.ui.search.entry.SearchEntryFragment"
         android:label="@string/title_search_entry"
-        tools:layout="@layout/fragment_search_entry"></fragment>
+        tools:layout="@layout/fragment_search_entry" />
 
     <fragment
         android:id="@+id/navigation_login_prompt"
