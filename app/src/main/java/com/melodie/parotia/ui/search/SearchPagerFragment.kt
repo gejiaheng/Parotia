@@ -1,12 +1,10 @@
 package com.melodie.parotia.ui.search
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -25,6 +23,7 @@ import com.melodie.parotia.ui.search.history.HistoryColor
 import com.melodie.parotia.ui.search.history.SearchHistoryViewModel
 import com.melodie.parotia.ui.search.photo.SearchPhotoFragment
 import com.melodie.parotia.ui.search.user.SearchUserFragment
+import com.melodie.parotia.util.dismissKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -63,7 +62,7 @@ class SearchPagerFragment : Fragment() {
                 pagerViewModel.onQueryTextChange(it?.toString())
             }
             setOnEditorActionListener { view, actionId, event ->
-                dismissKeyboard(view)
+                view.dismissKeyboard()
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     search(this@apply.text.toString(), false)
                     true
@@ -119,7 +118,7 @@ class SearchPagerFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        dismissKeyboard(binding.searchInput)
+        binding.searchInput.dismissKeyboard()
     }
 
     @ExperimentalStdlibApi
@@ -129,16 +128,6 @@ class SearchPagerFragment : Fragment() {
         }
         pagerViewModel.onQueryTextSubmit(query)
         historyViewModel.onQueryTextSubmit(query)
-    }
-
-    private fun showKeyboard(view: View) {
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
-    }
-
-    private fun dismissKeyboard(view: View) {
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
 
