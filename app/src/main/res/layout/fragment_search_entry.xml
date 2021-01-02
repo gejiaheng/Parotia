@@ -4,13 +4,19 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="searchBarClick"
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="viewModel"
+            name="searchEntryViewModel"
             type="com.melodie.parotia.ui.search.entry.SearchEntryViewModel" />
+
+        <variable
+            name="searchHistoryViewModel"
+            type="com.melodie.parotia.ui.search.history.SearchHistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{viewModel.banner.url}"
+            app:imageUrl="@{searchEntryViewModel.banner.url}"
             app:layout_constraintBottom_toBottomOf="@id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,9 +91,9 @@
                 android:id="@+id/search_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:transitionName="@string/shared_search_icon"
                 android:layout_marginStart="16dp"
                 android:src="@drawable/ic_search2"
+                android:transitionName="@string/shared_search_icon"
                 app:layout_constraintBottom_toBottomOf="@id/search_bar"
                 app:layout_constraintStart_toStartOf="@id/search_bar"
                 app:layout_constraintTop_toTopOf="@id/search_bar" />
@@ -114,6 +120,7 @@
                 android:text="@string/search_history"
                 android:textAppearance="?textAppearanceHeadline6"
                 android:transitionName="@string/shared_search_history_title"
+                android:visibility="@{searchHistoryViewModel.hasHistory ? View.VISIBLE : View.INVISIBLE }"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/search_bar"
                 app:layout_goneMarginStart="@dimen/content_margin" />

@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.google.android.material.chip.Chip
 import com.melodie.parotia.R
 import com.melodie.parotia.databinding.FragmentSearchEntryBinding
@@ -31,18 +30,11 @@ class SearchEntryFragment : Fragment() {
         binding = FragmentSearchEntryBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = entryViewModel
-        binding.searchBarClick = View.OnClickListener {
-            entryViewModel.startSearch(binding, null)
-        }
+        binding.searchEntryViewModel = entryViewModel
+        binding.searchHistoryViewModel = historyViewModel
         historyViewModel.history.observe(
             viewLifecycleOwner,
-            Observer { history ->
+            { history ->
                 binding.historyGroup.removeAllViews()
                 history.forEach {
                     val chip = LayoutInflater.from(context)
@@ -63,5 +55,13 @@ class SearchEntryFragment : Fragment() {
                 }
             }
         )
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.searchBarClick = View.OnClickListener {
+            entryViewModel.startSearch(binding, null)
+        }
     }
 }

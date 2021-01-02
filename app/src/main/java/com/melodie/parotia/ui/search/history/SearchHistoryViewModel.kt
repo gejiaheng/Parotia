@@ -3,6 +3,7 @@ package com.melodie.parotia.ui.search.history
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.melodie.parotia.domain.search.GetSearchHistoryUseCase
@@ -19,6 +20,9 @@ class SearchHistoryViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     private val _history = MutableLiveData<List<String>>()
     val history: LiveData<List<String>> = _history
+    val hasHistory: LiveData<Boolean> = map(history) {
+        !it.isNullOrEmpty()
+    }
 
     @ExperimentalStdlibApi
     fun onQueryTextSubmit(query: String) {
