@@ -11,8 +11,12 @@
         <import type="android.text.TextUtils" />
 
         <variable
-            name="viewModel"
+            name="pagerViewModel"
             type="com.melodie.parotia.ui.search.SearchPagerViewModel" />
+
+        <variable
+            name="historyViewModel"
+            type="com.melodie.parotia.ui.search.history.SearchHistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_clear_inset"
-            android:visibility="@{viewModel.inputEmpty ? View.INVISIBLE : View.VISIBLE}"
+            android:visibility="@{pagerViewModel.inputEmpty ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/search_bar"
             app:layout_constraintEnd_toEndOf="@id/search_bar"
             app:layout_constraintTop_toTopOf="@id/search_bar" />
@@ -81,24 +85,26 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:padding="16dp"
-            android:visibility="@{ viewModel.showHistory ? View.VISIBLE : View.GONE}"
+            android:visibility="@{ pagerViewModel.showPager ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider">
 
             <TextView
+                android:id="@+id/history_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/search_history"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:transitionName="@string/shared_search_history_title" />
+                android:transitionName="@string/shared_search_history_title"
+                android:visibility="@{ historyViewModel.hasHistory ? View.VISIBLE : View.INVISIBLE}" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/history_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/content_margin"
                 android:transitionName="@string/shared_search_history_group" />
 
         </LinearLayout>
@@ -108,7 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:visibility="@{ viewModel.showHistory ? View.GONE : View.VISIBLE}"
+            android:visibility="@{ pagerViewModel.showPager ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

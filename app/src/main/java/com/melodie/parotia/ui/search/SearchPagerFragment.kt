@@ -12,7 +12,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -51,6 +50,8 @@ class SearchPagerFragment : Fragment() {
         binding = FragmentSearchPagerBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+        binding.pagerViewModel = pagerViewModel
+        binding.historyViewModel = historyViewModel
         return binding.root
     }
 
@@ -91,10 +92,9 @@ class SearchPagerFragment : Fragment() {
             }
         }.attach()
 
-        binding.viewModel = pagerViewModel
         historyViewModel.history.observe(
             viewLifecycleOwner,
-            Observer { history ->
+            { history ->
                 binding.historyGroup.removeAllViews()
                 history.forEach {
                     val chip = LayoutInflater.from(context)

@@ -13,14 +13,12 @@ class SearchPagerViewModel @ViewModelInject constructor() : ViewModel() {
     val queryTextSubmitted: LiveData<String> = _queryTextSubmitted
     private val _queryText: MutableLiveData<String> = MutableLiveData()
 
-    val showHistory: LiveData<Boolean> = liveData {
-        emit(true)
-        emitSource(map(_queryText) { it.isNullOrEmpty() })
+    val showPager: LiveData<Boolean> = liveData {
+        emit(false)
+        emitSource(map(_queryText) { !it.isNullOrEmpty() })
     }
 
-    val inputEmpty: LiveData<Boolean> = liveData {
-        emitSource(map(_queryText) { it.isNullOrEmpty() })
-    }
+    val inputEmpty: LiveData<Boolean> = map(_queryText) { it.isNullOrEmpty() }
 
     fun onQueryTextSubmit(query: String) {
         _queryTextSubmitted.value = query
