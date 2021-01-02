@@ -74,7 +74,7 @@
                 android:layout_marginStart="@dimen/content_margin"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="@dimen/content_margin"
-                android:background="@drawable/ripple_rounded"
+                android:background="@drawable/ripple_rounded_rectangle"
                 android:onClick="@{searchBarClick}"
                 android:transitionName="@string/shared_search_bar"
                 app:layout_constraintEnd_toEndOf="parent"

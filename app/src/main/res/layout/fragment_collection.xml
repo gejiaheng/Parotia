@@ -12,6 +12,10 @@
         <variable
             name="viewModel"
             type="com.melodie.parotia.ui.collection.detail.CollectionViewModel" />
+
+        <variable
+            name="backBtnClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -27,9 +31,11 @@
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_circle"
+            android:onClick="@{backBtnClick}"
+            android:src="@drawable/ic_arrow_back_inset" />
 
         <TextView
             android:id="@+id/title"

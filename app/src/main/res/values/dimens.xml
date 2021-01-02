@@ -20,4 +20,5 @@
     <dimen name="toolbar_height_large">64dp</dimen>
     <dimen name="toolbar_margin_horizontal">16dp</dimen>
     <dimen name="toolbar_margin_vertical">32dp</dimen>
+    <dimen name="toolbar_nav_icon">48dp</dimen>
 </resources>

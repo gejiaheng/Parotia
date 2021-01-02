@@ -32,8 +32,8 @@
 
         <Constraint
             android:id="@id/btn_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:elevation="0dp"
             motion:layout_constraintBottom_toBottomOf="@id/toolbar"
             motion:layout_constraintStart_toStartOf="@id/toolbar"
@@ -72,10 +72,9 @@
 
         <Constraint
             android:id="@id/btn_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:elevation="@dimen/toolbar_elevation"
-            android:src="@drawable/ic_arrow_back"
             motion:layout_constraintBottom_toBottomOf="@id/toolbar"
             motion:layout_constraintStart_toStartOf="@id/toolbar"
             motion:layout_constraintTop_toTopOf="@id/toolbar" />
